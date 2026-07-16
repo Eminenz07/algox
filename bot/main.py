@@ -120,7 +120,8 @@ def main():
     dash_cfg = cfg["dashboard"]
     dashboard.init_dashboard(tm, client, cfg)
 
-    dash_host = os.environ.get("HOST", dash_cfg["host"])
+    # Default to 0.0.0.0 (all interfaces) so cloud environments like Render can route traffic
+    dash_host = os.environ.get("HOST", "0.0.0.0")
     dash_port = int(os.environ.get("PORT", dash_cfg["port"]))
 
     dash_thread = threading.Thread(
