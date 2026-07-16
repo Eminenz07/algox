@@ -37,7 +37,7 @@
     "be_offset_r": 0.1
   },
   "dashboard": {
-    "port": 6000,
+    "port": 8000,
     "host": "127.0.0.1"
   }
 }
