@@ -95,6 +95,7 @@ def main():
         notifier        = notifier,
         max_trades      = trade_cfg["max_concurrent_trades"],
         trade_direction = trade_cfg["trade_direction"],
+        be_offset_r     = cfg["strategy"].get("be_offset_r", 0.1),
     )
 
     # ── Setup exchange for each symbol ────────────────────────────────────────

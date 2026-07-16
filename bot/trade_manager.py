@@ -54,12 +54,14 @@ class TradeManager:
                  risk_manager:     RiskManager,
                  notifier:         Notifier,
                  max_trades:       int  = 2,
-                 trade_direction:  str  = "BOTH"):
+                 trade_direction:  str  = "BOTH",
+                 be_offset_r:      float = 0.1):
         self.exchange        = exchange
         self.risk_manager    = risk_manager
         self.notifier        = notifier
         self.max_trades      = max_trades
         self.trade_direction = trade_direction
+        self.be_offset_r     = be_offset_r
 
         self._trades: dict[str, Trade] = {}   # symbol → Trade
         self._lock   = threading.Lock()
@@ -305,11 +307,12 @@ class TradeManager:
         if trade.direction == "LONG":
             # ── 1.5R: move SL to breakeven ───────────────────────────────
             if trade.state == LONG_ACTIVE and price >= lv.r1_5:
-                self.exchange.set_stop_loss(trade.symbol, lv.entry)
-                lv.sl = lv.entry
+                be_price = lv.entry + (lv.r_dist * self.be_offset_r)
+                self.exchange.set_stop_loss(trade.symbol, be_price)
+                lv.sl = be_price
                 with self._lock:
                     trade.state = LONG_BE
-                logger.info("%s LONG 1.5R hit -> SL to breakeven", trade.symbol)
+                logger.info("%s LONG 1.5R hit -> SL to breakeven with profit offset (%.4f)", trade.symbol, be_price)
                 self.notifier.sl_to_be(trade.symbol, "LONG", price)
 
             # ── 2R: move SL to 1.5R ──────────────────────────────────────
@@ -331,11 +334,12 @@ class TradeManager:
         else:  # SHORT
             # ── 1.5R ─────────────────────────────────────────────────────
             if trade.state == SHORT_ACTIVE and price <= lv.r1_5:
-                self.exchange.set_stop_loss(trade.symbol, lv.entry)
-                lv.sl = lv.entry
+                be_price = lv.entry - (lv.r_dist * self.be_offset_r)
+                self.exchange.set_stop_loss(trade.symbol, be_price)
+                lv.sl = be_price
                 with self._lock:
                     trade.state = SHORT_BE
-                logger.info("%s SHORT 1.5R hit -> SL to breakeven", trade.symbol)
+                logger.info("%s SHORT 1.5R hit -> SL to breakeven with profit offset (%.4f)", trade.symbol, be_price)
                 self.notifier.sl_to_be(trade.symbol, "SHORT", price)
 
             # ── 2R ───────────────────────────────────────────────────────

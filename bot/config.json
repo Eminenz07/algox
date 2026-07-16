@@ -32,8 +32,9 @@
     "alma_offset": 2.0,
     "alma_sigma": 5.0,
     "sl_pct": 0.5,
-    "use_alternate_signals": 1,
-    "alternate_signals_multiplier": 10
+    "use_alternate_signals": true,
+    "alternate_signals_multiplier": 10,
+    "be_offset_r": 0.1
   },
   "dashboard": {
     "port": 6000,
