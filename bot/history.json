@@ -1,0 +1,12 @@
+[
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 60000.0,
+    "close": 60900.0,
+    "qty": 1.555,
+    "outcome": "3R WIN",
+    "pnl": 1400.0,
+    "duration": 7200
+  }
+]
