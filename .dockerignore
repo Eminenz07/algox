@@ -4,5 +4,6 @@ __pycache__/
 *.pyd
 .git
 .github
-logs/
+.env
+bot/logs/
 *.log

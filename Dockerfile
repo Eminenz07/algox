@@ -5,14 +5,14 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt .
+# Copy requirements from bot folder and install
+COPY bot/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application files
-COPY . .
+# Copy all bot source code into container
+COPY bot/ .
 
-# Hugging Face Spaces require the app to bind to port 7860
+# Hugging Face / Render require the app to bind to port 7860 (Hugging Face default) or Render's PORT env var
 EXPOSE 7860
 
 # Run the bot orchestrator
