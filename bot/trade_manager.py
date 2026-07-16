@@ -15,6 +15,8 @@ State machine:
 import time
 import logging
 import threading
+import os
+import json
 from dataclasses import dataclass, field
 from typing import Callable
 
@@ -62,9 +64,32 @@ class TradeManager:
         self._trades: dict[str, Trade] = {}   # symbol → Trade
         self._lock   = threading.Lock()
         self._history: list[dict] = []        # closed trades for dashboard
+        self._load_history()
 
         # External callback called whenever state changes (for dashboard)
         self.on_state_change: Callable | None = None
+
+    def _load_history(self):
+        """Load closed trades history from history.json if exists."""
+        history_path = "history.json"
+        if os.path.exists(history_path):
+            try:
+                with open(history_path, "r", encoding="utf-8") as f:
+                    self._history = json.load(f)
+                logger.info("Loaded %d closed trades from history.json", len(self._history))
+            except Exception as exc:
+                logger.warning("Failed to load history.json: %s", exc)
+        else:
+            self._history = []
+
+    def _save_history(self):
+        """Save closed trades history to history.json."""
+        history_path = "history.json"
+        try:
+            with open(history_path, "w", encoding="utf-8") as f:
+                json.dump(self._history, f, indent=2)
+        except Exception as exc:
+            logger.warning("Failed to save history.json: %s", exc)
 
     # ── Public API ─────────────────────────────────────────────────────────────
 
@@ -365,6 +390,7 @@ class TradeManager:
                 "pnl":       round(pnl, 4),
                 "duration":  round(time.time() - trade.open_time, 0),
             })
+            self._save_history()
 
     def _fire_state_change(self):
         if self.on_state_change:
