@@ -1,0 +1,37 @@
+{
+  "exchange": {
+    "api_key": "RZUzx304EE0JsS42rw",
+    "api_secret": "WVYJDmGodOiuNlnjkTCeYHGmJhhSYcuecme8",
+    "demo": true
+  },
+  "telegram": {
+    "bot_token": "7693885693:AAE_APbyfLeNChWCx-uNxxHr2mcsDCRq1Hg",
+    "chat_id": "-1002257974356"
+  },
+  "trading": {
+    "pairs": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "SOLUSDT"
+    ],
+    "timeframe": "15",
+    "leverage": 10,
+    "margin_mode": "ISOLATED",
+    "risk_per_trade_pct": 1.0,
+    "max_concurrent_trades": 2,
+    "trade_direction": "BOTH"
+  },
+  "strategy": {
+    "ma_type": "ALMA",
+    "ma_period": 50,
+    "alma_offset": 2.0,
+    "alma_sigma": 5.0,
+    "sl_pct": 0.5,
+    "use_alternate_signals": 1,
+    "alternate_signals_multiplier": 10
+  },
+  "dashboard": {
+    "port": 5000,
+    "host": "127.0.0.1"
+  }
+}

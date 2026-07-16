@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+env/
+venv/
+
+# Bot logs
+bot/logs/
+*.log
+
+# Editor configurations
+.idea/
+.vscode/
