@@ -138,6 +138,28 @@ class BotEngine:
 
         logger.info("[SIGNAL] %s %s", signal, symbol)
 
+        # Check if already in trade
+        if self.tm.has_trade(symbol):
+            logger.info("Signal %s %s ignored — already in trade", signal, symbol)
+            return
+
+        # Check active trading pairs configuration
+        active_pairs = self.cfg["trading"].get("active_trading_pairs", self.symbols)
+        if symbol not in active_pairs:
+            msg = f"🔔 <b>[SIGNAL ONLY]</b> {symbol} {signal} signal detected.\n(Trading is disabled for this pair)"
+            logger.info(msg.replace("<b>", "").replace("</b>", ""))
+            self.tm.notifier.info(msg)
+            return
+
+        # Check max concurrent trades limit
+        active_count = self.tm.active_count()
+        max_trades   = self.cfg["trading"].get("max_concurrent_trades", 2)
+        if active_count >= max_trades:
+            msg = f"🔔 <b>[SIGNAL ONLY]</b> {symbol} {signal} signal detected.\n(Max concurrent trades of {max_trades} reached)"
+            logger.info(msg.replace("<b>", "").replace("</b>", ""))
+            self.tm.notifier.info(msg)
+            return
+
         balance = self.exchange.get_equity()
         if balance <= 0:
             logger.error("Balance $0 — cannot open trade")
@@ -170,6 +192,7 @@ class BotEngine:
         """
         Poll position every 15 seconds.
         If size drops to 0 while we think we're in a trade → SL was hit.
+        Also synchronises live quantity and unrealised PnL from Bybit.
         """
         while self.running:
             for sym in self.symbols:
@@ -180,6 +203,13 @@ class BotEngine:
                     if not pos:   # position returned empty → flat
                         logger.info("Position gone for %s -> SL hit detected", sym)
                         self.tm.on_position_closed(sym, close_price=0.0)
+                    else:
+                        # Synchronise exact live size and unrealised PnL from Bybit
+                        with self.tm._lock:
+                            trade = self.tm._trades.get(sym)
+                            if trade:
+                                trade.qty = float(pos["size"])
+                                trade.pnl = float(pos.get("unrealisedPnl") or 0.0)
                 except Exception as exc:
                     logger.error("Position poll error %s: %s", sym, exc)
             time.sleep(15)

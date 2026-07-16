@@ -85,6 +85,7 @@ def main():
     risk_mgr  = RiskManager(
         sl_pct             = strat_cfg["sl_pct"],
         risk_per_trade_pct = cfg["trading"]["risk_per_trade_pct"],
+        fixed_capital_base = cfg["trading"].get("fixed_capital_base", None),
     )
 
     trade_cfg = cfg["trading"]

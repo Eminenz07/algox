@@ -24,15 +24,17 @@ class TradeLevels:
 
 
 class RiskManager:
-    def __init__(self, sl_pct: float, risk_per_trade_pct: float):
+    def __init__(self, sl_pct: float, risk_per_trade_pct: float, fixed_capital_base: float = None):
         """
         Parameters
         ----------
         sl_pct             : Stop loss distance as % of entry price  (e.g. 0.5 for 0.5%)
         risk_per_trade_pct : % of account balance risked per trade   (e.g. 1.0 for 1%)
+        fixed_capital_base : Optional fixed USD balance to calculate risk from (e.g. 50000.0)
         """
         self.sl_pct             = sl_pct
         self.risk_per_trade_pct = risk_per_trade_pct
+        self.fixed_capital_base = fixed_capital_base
 
     # ── Level Calculation ─────────────────────────────────────────────────────
 
@@ -87,16 +89,17 @@ class RiskManager:
           R_price     = $300
           qty         = 5/300 = 0.01667 BTC  →  rounded down to step
         """
-        risk_amount = balance_usdt * (self.risk_per_trade_pct / 100)
-        r_price     = entry_price  * (self.sl_pct / 100)
-        raw_qty     = risk_amount  / r_price
+        base_balance = self.fixed_capital_base if self.fixed_capital_base is not None else balance_usdt
+        risk_amount  = base_balance * (self.risk_per_trade_pct / 100)
+        r_price      = entry_price  * (self.sl_pct / 100)
+        raw_qty      = risk_amount  / r_price
 
         # Round DOWN to nearest qty_step
         qty = math.floor(raw_qty / qty_step) * qty_step
         qty = round(qty, 8)
 
         logger.info(
-            "Qty calc | balance=%.2f risk=$%.2f r_price=%.4f raw=%.6f rounded=%.6f step=%.6f",
-            balance_usdt, risk_amount, r_price, raw_qty, qty, qty_step,
+            "Qty calc | balance=%.2f (base=%.2f) risk=$%.2f r_price=%.4f raw=%.6f rounded=%.6f step=%.6f",
+            balance_usdt, base_balance, risk_amount, r_price, raw_qty, qty, qty_step,
         )
         return qty
