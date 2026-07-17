@@ -9,13 +9,24 @@ import logging
 import threading
 import os
 import json
+import mimetypes
 
 from flask            import Flask, render_template, jsonify, request
 from flask_socketio   import SocketIO
 
+# Ensure proper MIME types for static assets to prevent strict browser sniffing blocks
+mimetypes.add_type('text/css', '.css')
+mimetypes.add_type('application/javascript', '.js')
+
 logger = logging.getLogger(__name__)
 
-app      = Flask(__name__)
+# Use absolute paths for templates and static files to ensure reliability across all deployment environments
+base_dir = os.path.dirname(os.path.abspath(__file__))
+app      = Flask(
+    __name__,
+    template_folder=os.path.join(base_dir, "templates"),
+    static_folder=os.path.join(base_dir, "static")
+)
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 
 # Shared state injected by main.py
