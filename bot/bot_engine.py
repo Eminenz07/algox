@@ -191,25 +191,33 @@ class BotEngine:
     def _position_loop(self):
         """
         Poll position every 15 seconds.
-        If size drops to 0 while we think we're in a trade → SL was hit.
-        Also synchronises live quantity and unrealised PnL from Bybit.
+        Synchronises live position state between memory and Bybit exchange.
         """
         while self.running:
             for sym in self.symbols:
-                if not self.tm.has_trade(sym):
-                    continue
                 try:
                     pos = self.exchange.get_position(sym)
-                    if not pos:   # position returned empty → flat
-                        logger.info("Position gone for %s -> SL hit detected", sym)
-                        self.tm.on_position_closed(sym, close_price=0.0)
+                    has_local = self.tm.has_trade(sym)
+
+                    # Case A: We have an active position on exchange
+                    if pos and float(pos.get("size", 0)) > 0:
+                        if not has_local:
+                            logger.info("Found active position for %s on exchange not tracked locally -> syncing...", sym)
+                            self.tm.sync_positions([sym])
+                        else:
+                            # Update live qty and unrealised PnL on existing local trade object
+                            with self.tm._lock:
+                                trade = self.tm._trades.get(sym)
+                                if trade:
+                                    trade.qty = float(pos["size"])
+                                    trade.pnl = float(pos.get("unrealisedPnl") or 0.0)
+                    
+                    # Case B: No active position on exchange
                     else:
-                        # Synchronise exact live size and unrealised PnL from Bybit
-                        with self.tm._lock:
-                            trade = self.tm._trades.get(sym)
-                            if trade:
-                                trade.qty = float(pos["size"])
-                                trade.pnl = float(pos.get("unrealisedPnl") or 0.0)
+                        if has_local:
+                            logger.info("Position gone for %s on exchange -> closing locally", sym)
+                            self.tm.on_position_closed(sym, close_price=0.0)
+
                 except Exception as exc:
                     logger.error("Position poll error %s: %s", sym, exc)
             time.sleep(15)

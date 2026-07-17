@@ -8,5 +8,15 @@
     "outcome": "3R WIN",
     "pnl": 1400.0,
     "duration": 7200
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "LONG",
+    "entry": 1878.63,
+    "close": 0.0,
+    "qty": 53.23,
+    "outcome": "SL",
+    "pnl": -447.132,
+    "duration": 930.0
   }
 ]
