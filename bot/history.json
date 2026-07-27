@@ -1,2 +1,32 @@
 [
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 65185.5,
+    "close": 64859.5725,
+    "qty": 1.6318,
+    "outcome": "SL",
+    "pnl": -531.8378,
+    "duration": 1740.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 65579.5,
+    "close": 65251.6025,
+    "qty": 1.8512,
+    "outcome": "SL",
+    "pnl": -607.0092,
+    "duration": 720.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 65174.8,
+    "close": 65500.674,
+    "qty": 1.5398,
+    "outcome": "SL",
+    "pnl": -501.7714,
+    "duration": 1560.0
+  }
 ]
