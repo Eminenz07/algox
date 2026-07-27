@@ -15,8 +15,7 @@
       "SOLUSDT"
     ],
     "active_trading_pairs": [
-      "BTCUSDT",
-      "ETHUSDT"
+      "BTCUSDT"
     ],
     "timeframe": "15",
     "leverage": 10,
