@@ -17,7 +17,8 @@ class TradeLevels:
     entry:   float   # entry price (close of signal bar)
     sl:      float   # initial stop loss
     r_dist:  float   # 1R distance in price
-    r1_5:    float   # 1.5R level → move SL to breakeven when hit
+    r1:      float   # 1R level   → move SL to breakeven when hit
+    r1_5:    float   # 1.5R level → lock target
     r2:      float   # 2R level   → move SL to 1.5R when hit
     r3:      float   # 3R level   → close full position (full TP)
     direction: str   # 'LONG' or 'SHORT'
@@ -49,11 +50,13 @@ class RiskManager:
 
         if direction == "LONG":
             sl   = entry_price - r
+            r1   = entry_price + r
             r1_5 = entry_price + 1.5 * r
             r2   = entry_price + 2.0 * r
             r3   = entry_price + 3.0 * r
         else:  # SHORT
             sl   = entry_price + r
+            r1   = entry_price - r
             r1_5 = entry_price - 1.5 * r
             r2   = entry_price - 2.0 * r
             r3   = entry_price - 3.0 * r
@@ -62,14 +65,15 @@ class RiskManager:
             entry=entry_price,
             sl=sl,
             r_dist=r,
+            r1=r1,
             r1_5=r1_5,
             r2=r2,
             r3=r3,
             direction=direction,
         )
         logger.info(
-            "Levels %s | Entry=%.4f | SL=%.4f | 1.5R=%.4f | 2R=%.4f | 3R=%.4f",
-            direction, entry_price, sl, r1_5, r2, r3,
+            "Levels %s | Entry=%.4f | SL=%.4f | 1R=%.4f | 1.5R=%.4f | 2R=%.4f | 3R=%.4f",
+            direction, entry_price, sl, r1, r1_5, r2, r3,
         )
         return levels
 
