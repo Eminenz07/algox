@@ -1,0 +1,792 @@
+[
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1926.86,
+    "close": 1936.59,
+    "qty": 51.89,
+    "outcome": "SL",
+    "pnl": -615.1506,
+    "duration": 1066.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "LONG",
+    "entry": 78.11,
+    "close": 77.71,
+    "qty": 1272.1,
+    "outcome": "SL",
+    "pnl": -617.8602,
+    "duration": 933.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64941.6,
+    "close": 63955.9,
+    "qty": 1.501,
+    "outcome": "3R WIN",
+    "pnl": 1382.0442,
+    "duration": 0.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "LONG",
+    "entry": 76.495,
+    "close": 76.13,
+    "qty": 3144.8,
+    "outcome": "SL",
+    "pnl": -1411.7633,
+    "duration": 1091.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64386.2,
+    "close": 64385.7,
+    "qty": 1.816,
+    "outcome": "SL",
+    "pnl": -133.1933,
+    "duration": 8411.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "LONG",
+    "entry": 76.61,
+    "close": 76.23,
+    "qty": 1537.0,
+    "outcome": "SL",
+    "pnl": -713.2633,
+    "duration": 2415.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "LONG",
+    "entry": 76.44,
+    "close": 76.05,
+    "qty": 1511.7,
+    "outcome": "SL",
+    "pnl": -716.3485,
+    "duration": 796.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "LONG",
+    "entry": 76.65,
+    "close": 76.26,
+    "qty": 1503.0,
+    "outcome": "SL",
+    "pnl": -713.0887,
+    "duration": 2403.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "SHORT",
+    "entry": 76.25,
+    "close": 75.67,
+    "qty": 1469.6,
+    "outcome": "SL (Trail)",
+    "pnl": 729.5741,
+    "duration": 6419.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "LONG",
+    "entry": 1878.63,
+    "close": 1868.29,
+    "qty": 53.23,
+    "outcome": "SL",
+    "pnl": -660.0949,
+    "duration": 3331.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64349.4,
+    "close": 63556.7,
+    "qty": 1.737,
+    "outcome": "3R WIN",
+    "pnl": 1256.0225,
+    "duration": 0.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 63273.3,
+    "close": 62956.1,
+    "qty": 1.58,
+    "outcome": "SL",
+    "pnl": -610.8693,
+    "duration": 4686.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "LONG",
+    "entry": 1841.31,
+    "close": 1832.0,
+    "qty": 54.3,
+    "outcome": "SL",
+    "pnl": -615.2364,
+    "duration": 2507.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 63377.6,
+    "close": 63051.0,
+    "qty": 1.577,
+    "outcome": "SL",
+    "pnl": -624.706,
+    "duration": 1089.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 63242.1,
+    "close": 62924.2,
+    "qty": 1.581,
+    "outcome": "SL",
+    "pnl": -612.3078,
+    "duration": 1292.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "LONG",
+    "entry": 1829.71,
+    "close": 1843.29,
+    "qty": 54.65,
+    "outcome": "SL (Trail)",
+    "pnl": 631.7458,
+    "duration": 4747.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "LONG",
+    "entry": 1845.43,
+    "close": 1836.18,
+    "qty": 54.18,
+    "outcome": "SL",
+    "pnl": -610.8733,
+    "duration": 3032.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 63254.5,
+    "close": 64210.9,
+    "qty": 1.58,
+    "outcome": "3R WIN",
+    "pnl": 1396.6457,
+    "duration": 0.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "SHORT",
+    "entry": 74.86,
+    "close": 75.23,
+    "qty": 1335.8,
+    "outcome": "SL",
+    "pnl": -605.6946,
+    "duration": 6533.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1835.9,
+    "close": 1845.23,
+    "qty": 54.46,
+    "outcome": "SL",
+    "pnl": -616.5378,
+    "duration": 12051.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63916.3,
+    "close": 64239.4,
+    "qty": 1.564,
+    "outcome": "SL",
+    "pnl": -613.2517,
+    "duration": 43640.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "SHORT",
+    "entry": 75.04,
+    "close": 75.0,
+    "qty": 1332.6,
+    "outcome": "SL",
+    "pnl": -63.7893,
+    "duration": 39919.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64281.3,
+    "close": 64762.0,
+    "qty": 1.555,
+    "outcome": "SL (Trail)",
+    "pnl": 634.1887,
+    "duration": 36154.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "LONG",
+    "entry": 74.92,
+    "close": 76.07,
+    "qty": 1334.7,
+    "outcome": "3R WIN",
+    "pnl": 1423.8509,
+    "duration": 0.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64629.1,
+    "close": 64955.4,
+    "qty": 1.547,
+    "outcome": "SL",
+    "pnl": -595.2926,
+    "duration": 71930.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1865.46,
+    "close": 1874.72,
+    "qty": 53.6,
+    "outcome": "SL",
+    "pnl": -606.5965,
+    "duration": 3798.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1864.08,
+    "close": 1873.43,
+    "qty": 53.64,
+    "outcome": "SL",
+    "pnl": -611.798,
+    "duration": 615.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "SHORT",
+    "entry": 75.95,
+    "close": 76.32,
+    "qty": 1316.6,
+    "outcome": "SL",
+    "pnl": -597.4053,
+    "duration": 7432.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1867.62,
+    "close": 1877.27,
+    "qty": 53.54,
+    "outcome": "SL",
+    "pnl": -626.9368,
+    "duration": 20161.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "LONG",
+    "entry": 1870.55,
+    "close": 1884.47,
+    "qty": 53.46,
+    "outcome": "SL (Trail)",
+    "pnl": 627.4266,
+    "duration": 6616.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64534.0,
+    "close": 64857.6,
+    "qty": 1.549,
+    "outcome": "SL",
+    "pnl": -611.4916,
+    "duration": 559.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64589.7,
+    "close": 64915.3,
+    "qty": 1.548,
+    "outcome": "SL",
+    "pnl": -614.2894,
+    "duration": 333.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1868.81,
+    "close": 1878.2,
+    "qty": 53.51,
+    "outcome": "SL",
+    "pnl": -612.7353,
+    "duration": 160.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64650.0,
+    "close": 64166.0,
+    "qty": 1.546,
+    "outcome": "SL (Trail)",
+    "pnl": 638.7318,
+    "duration": 18869.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1870.37,
+    "close": 1879.83,
+    "qty": 53.46,
+    "outcome": "SL",
+    "pnl": -615.9987,
+    "duration": 769.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1871.19,
+    "close": 1857.24,
+    "qty": 53.44,
+    "outcome": "SL (Trail)",
+    "pnl": 635.902,
+    "duration": 6230.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1857.39,
+    "close": 1856.45,
+    "qty": 53.83,
+    "outcome": "SL",
+    "pnl": -59.3536,
+    "duration": 7798.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "LONG",
+    "entry": 76.57,
+    "close": 76.6,
+    "qty": 1306.1,
+    "outcome": "SL",
+    "pnl": -70.8474,
+    "duration": 14023.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "LONG",
+    "entry": 1868.98,
+    "close": 1882.94,
+    "qty": 53.5,
+    "outcome": "SL (Trail)",
+    "pnl": 636.4598,
+    "duration": 5575.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64725.6,
+    "close": 64414.0,
+    "qty": 1.544,
+    "outcome": "SL",
+    "pnl": -590.7757,
+    "duration": 5521.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64316.9,
+    "close": 64638.5,
+    "qty": 1.554,
+    "outcome": "SL",
+    "pnl": -609.9846,
+    "duration": 4033.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1861.0,
+    "close": 1870.4,
+    "qty": 53.73,
+    "outcome": "SL",
+    "pnl": -615.3305,
+    "duration": 2769.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1867.69,
+    "close": 1877.2,
+    "qty": 53.53,
+    "outcome": "SL",
+    "pnl": -619.3255,
+    "duration": 436.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 65117.8,
+    "close": 65445.2,
+    "qty": 1.535,
+    "outcome": "SL",
+    "pnl": -609.5409,
+    "duration": 6901.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 65205.4,
+    "close": 65533.9,
+    "qty": 1.533,
+    "outcome": "SL",
+    "pnl": -613.8233,
+    "duration": 7109.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "SHORT",
+    "entry": 78.23,
+    "close": 78.19,
+    "qty": 1278.1,
+    "outcome": "SL",
+    "pnl": -50.2161,
+    "duration": 47989.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1928.5,
+    "close": 1938.17,
+    "qty": 51.85,
+    "outcome": "SL",
+    "pnl": -611.6573,
+    "duration": 3435.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1927.99,
+    "close": 1937.65,
+    "qty": 51.86,
+    "outcome": "SL",
+    "pnl": -611.2272,
+    "duration": 579.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1932.38,
+    "close": 1931.5,
+    "qty": 51.74,
+    "outcome": "SL",
+    "pnl": -61.2919,
+    "duration": 33963.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 66533.9,
+    "close": 66185.8,
+    "qty": 1.502,
+    "outcome": "SL",
+    "pnl": -632.4859,
+    "duration": 11456.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "LONG",
+    "entry": 1936.71,
+    "close": 1927.01,
+    "qty": 51.63,
+    "outcome": "SL",
+    "pnl": -610.5271,
+    "duration": 4146.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "LONG",
+    "entry": 1930.32,
+    "close": 1920.9,
+    "qty": 51.8,
+    "outcome": "SL",
+    "pnl": -597.6773,
+    "duration": 13968.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 66153.6,
+    "close": 66121.0,
+    "qty": 1.511,
+    "outcome": "SL",
+    "pnl": -58.9449,
+    "duration": 39044.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1921.68,
+    "close": 1931.38,
+    "qty": 52.03,
+    "outcome": "SL",
+    "pnl": -616.6785,
+    "duration": 18899.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "LONG",
+    "entry": 77.63,
+    "close": 77.24,
+    "qty": 1288.1,
+    "outcome": "SL",
+    "pnl": -612.0774,
+    "duration": 4723.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1922.82,
+    "close": 1932.39,
+    "qty": 52.0,
+    "outcome": "SL",
+    "pnl": -607.899,
+    "duration": 4046.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "LONG",
+    "entry": 1937.56,
+    "close": 1927.78,
+    "qty": 51.61,
+    "outcome": "SL",
+    "pnl": -614.4654,
+    "duration": 2360.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 65827.2,
+    "close": 65860.0,
+    "qty": 1.519,
+    "outcome": "SL",
+    "pnl": -58.0361,
+    "duration": 14832.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "LONG",
+    "entry": 1924.06,
+    "close": 1938.18,
+    "qty": 51.97,
+    "outcome": "SL (Trail)",
+    "pnl": 618.0211,
+    "duration": 6437.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 65820.1,
+    "close": 66200.0,
+    "qty": 1.519,
+    "outcome": "SL",
+    "pnl": -689.4381,
+    "duration": 20152.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1930.91,
+    "close": 1940.67,
+    "qty": 51.78,
+    "outcome": "SL",
+    "pnl": -615.9509,
+    "duration": 21353.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1931.79,
+    "close": 1917.3,
+    "qty": 51.76,
+    "outcome": "SL (Trail)",
+    "pnl": 639.26,
+    "duration": 25692.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "LONG",
+    "entry": 1924.97,
+    "close": 1915.28,
+    "qty": 51.94,
+    "outcome": "SL",
+    "pnl": -613.003,
+    "duration": 13580.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1902.66,
+    "close": 1888.43,
+    "qty": 52.55,
+    "outcome": "SL (Trail)",
+    "pnl": 638.2145,
+    "duration": 9274.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 65902.3,
+    "close": 64894.7,
+    "qty": 1.517,
+    "outcome": "3R WIN",
+    "pnl": 1415.9659,
+    "duration": 0.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 65020.8,
+    "close": 65504.1,
+    "qty": 1.537,
+    "outcome": "SL (Trail)",
+    "pnl": 630.7888,
+    "duration": 40819.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "LONG",
+    "entry": 1880.87,
+    "close": 1909.03,
+    "qty": 53.16,
+    "outcome": "3R WIN",
+    "pnl": 1386.1765,
+    "duration": 0.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "LONG",
+    "entry": 76.28,
+    "close": 75.89,
+    "qty": 1310.9,
+    "outcome": "SL",
+    "pnl": -620.9648,
+    "duration": 1544.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "SHORT",
+    "entry": 75.8,
+    "close": 75.22,
+    "qty": 1319.2,
+    "outcome": "SL (Trail)",
+    "pnl": 661.8278,
+    "duration": 16691.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 65001.8,
+    "close": 64515.0,
+    "qty": 1.538,
+    "outcome": "SL (Trail)",
+    "pnl": 639.1401,
+    "duration": 14650.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "LONG",
+    "entry": 74.19,
+    "close": 73.81,
+    "qty": 1348.0,
+    "outcome": "SL",
+    "pnl": -621.9672,
+    "duration": 17063.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64149.4,
+    "close": 63831.9,
+    "qty": 1.558,
+    "outcome": "SL",
+    "pnl": -601.6692,
+    "duration": 14672.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "SHORT",
+    "entry": 73.82,
+    "close": 74.18,
+    "qty": 1354.6,
+    "outcome": "SL",
+    "pnl": -604.8041,
+    "duration": 31404.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "LONG",
+    "entry": 74.16,
+    "close": 74.7,
+    "qty": 1348.4,
+    "outcome": "SL (Trail)",
+    "pnl": 630.0509,
+    "duration": 33875.0
+  },
+  {
+    "symbol": "ETHUSDT",
+    "direction": "SHORT",
+    "entry": 1879.76,
+    "close": 1889.18,
+    "qty": 53.19,
+    "outcome": "SL",
+    "pnl": -611.3083,
+    "duration": 13866.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "SHORT",
+    "entry": 74.83,
+    "close": 75.2,
+    "qty": 1336.3,
+    "outcome": "SL",
+    "pnl": -604.6978,
+    "duration": 9287.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "LONG",
+    "entry": 75.18,
+    "close": 75.74,
+    "qty": 1330.1,
+    "outcome": "SL (Trail)",
+    "pnl": 636.2852,
+    "duration": 3879.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64034.4,
+    "close": 65076.9,
+    "qty": 1.561,
+    "outcome": "3R WIN",
+    "pnl": 1519.7553,
+    "duration": 0.0
+  },
+  {
+    "symbol": "SOLUSDT",
+    "direction": "SHORT",
+    "entry": 76.26,
+    "close": 76.64,
+    "qty": 1311.3,
+    "outcome": "SL",
+    "pnl": -608.5678,
+    "duration": 7215.0
+  }
+]
