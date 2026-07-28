@@ -21,7 +21,7 @@
     "leverage": 10,
     "margin_mode": "ISOLATED",
     "risk_per_trade_pct": 1.0,
-    "fixed_capital_base": 50000.0,
+    "fixed_capital_base": 40000.0,
     "max_concurrent_trades": 2,
     "trade_direction": "BOTH"
   },
