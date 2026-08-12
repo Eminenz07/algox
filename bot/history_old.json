@@ -788,5 +788,525 @@
     "outcome": "SL",
     "pnl": -608.5678,
     "duration": 7215.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 65579.5,
+    "close": 65250.0,
+    "qty": 1.524,
+    "outcome": "SL",
+    "pnl": -611.8193,
+    "duration": 745.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 65185.5,
+    "close": 64856.6,
+    "qty": 1.534,
+    "outcome": "SL",
+    "pnl": -614.2491,
+    "duration": 1786.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64990.9,
+    "close": 64652.8,
+    "qty": 1.538,
+    "outcome": "SL",
+    "pnl": -629.6634,
+    "duration": 16299.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64703.3,
+    "close": 63642.2,
+    "qty": 1.545,
+    "outcome": "3R WIN",
+    "pnl": 1530.3379,
+    "duration": 0.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 63717.4,
+    "close": 63747.3,
+    "qty": 1.255,
+    "outcome": "SL",
+    "pnl": -52.7317,
+    "duration": 6378.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63539.9,
+    "close": 63858.4,
+    "qty": 1.259,
+    "outcome": "SL",
+    "pnl": -489.2085,
+    "duration": 8068.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63589.2,
+    "close": 63908.3,
+    "qty": 1.258,
+    "outcome": "SL",
+    "pnl": -489.6433,
+    "duration": 1978.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63768.7,
+    "close": 64087.7,
+    "qty": 1.254,
+    "outcome": "SL",
+    "pnl": -488.2086,
+    "duration": 3294.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63731.4,
+    "close": 64050.0,
+    "qty": 1.255,
+    "outcome": "SL",
+    "pnl": -488.0441,
+    "duration": 8575.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64032.5,
+    "close": 64511.2,
+    "qty": 1.249,
+    "outcome": "SL (Trail)",
+    "pnl": 506.0948,
+    "duration": 17475.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64292.8,
+    "close": 64619.8,
+    "qty": 1.244,
+    "outcome": "SL",
+    "pnl": -494.99,
+    "duration": 4787.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64657.4,
+    "close": 64332.8,
+    "qty": 1.237,
+    "outcome": "SL",
+    "pnl": -489.2887,
+    "duration": 774.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64648.6,
+    "close": 64312.7,
+    "qty": 1.237,
+    "outcome": "SL",
+    "pnl": -503.2471,
+    "duration": 331.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64106.6,
+    "close": 64074.3,
+    "qty": 1.247,
+    "outcome": "SL",
+    "pnl": -47.6348,
+    "duration": 488.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64010.3,
+    "close": 63531.0,
+    "qty": 1.249,
+    "outcome": "SL (Trail)",
+    "pnl": 511.0312,
+    "duration": 2580.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63574.6,
+    "close": 63542.9,
+    "qty": 1.258,
+    "outcome": "SL",
+    "pnl": -48.074,
+    "duration": 4471.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 63961.7,
+    "close": 63640.6,
+    "qty": 1.25,
+    "outcome": "SL",
+    "pnl": -492.6095,
+    "duration": 9509.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64032.9,
+    "close": 64064.6,
+    "qty": 1.249,
+    "outcome": "SL",
+    "pnl": -48.4033,
+    "duration": 10399.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63978.2,
+    "close": 64297.5,
+    "qty": 1.25,
+    "outcome": "SL",
+    "pnl": -479.7197,
+    "duration": 11577.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64274.9,
+    "close": 64754.6,
+    "qty": 1.244,
+    "outcome": "SL (Trail)",
+    "pnl": 508.4648,
+    "duration": 18029.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64671.4,
+    "close": 64981.8,
+    "qty": 1.237,
+    "outcome": "SL",
+    "pnl": -472.1744,
+    "duration": 12536.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64760.0,
+    "close": 65083.5,
+    "qty": 1.235,
+    "outcome": "SL",
+    "pnl": -487.7187,
+    "duration": 4125.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64824.7,
+    "close": 64339.6,
+    "qty": 1.234,
+    "outcome": "SL (Trail)",
+    "pnl": 510.9496,
+    "duration": 5718.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64354.3,
+    "close": 63872.4,
+    "qty": 1.243,
+    "outcome": "SL (Trail)",
+    "pnl": 510.3879,
+    "duration": 25937.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 63034.2,
+    "close": 62714.0,
+    "qty": 1.269,
+    "outcome": "SL",
+    "pnl": -497.14,
+    "duration": 54283.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 62799.9,
+    "close": 63259.9,
+    "qty": 1.273,
+    "outcome": "SL (Trail)",
+    "pnl": 487.9353,
+    "duration": 38310.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63193.8,
+    "close": 63516.3,
+    "qty": 1.265,
+    "outcome": "SL",
+    "pnl": -496.1147,
+    "duration": 35796.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63220.5,
+    "close": 62268.5,
+    "qty": 1.265,
+    "outcome": "3R WIN",
+    "pnl": 1117.7003,
+    "duration": 0.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 62757.0,
+    "close": 63227.6,
+    "qty": 1.274,
+    "outcome": "SL (Trail)",
+    "pnl": 511.267,
+    "duration": 3919.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 63750.4,
+    "close": 63430.1,
+    "qty": 1.254,
+    "outcome": "SL",
+    "pnl": -493.2532,
+    "duration": 27298.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63474.0,
+    "close": 63800.0,
+    "qty": 1.26,
+    "outcome": "SL",
+    "pnl": -495.237,
+    "duration": 12333.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 63799.7,
+    "close": 63833.7,
+    "qty": 1.253,
+    "outcome": "SL",
+    "pnl": -45.3566,
+    "duration": 12518.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63675.4,
+    "close": 63988.5,
+    "qty": 1.256,
+    "outcome": "SL",
+    "pnl": -473.4475,
+    "duration": 21182.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 63943.9,
+    "close": 63619.7,
+    "qty": 1.251,
+    "outcome": "SL",
+    "pnl": -493.3443,
+    "duration": 4305.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63677.0,
+    "close": 63998.5,
+    "qty": 1.256,
+    "outcome": "SL",
+    "pnl": -492.0022,
+    "duration": 2289.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64003.4,
+    "close": 64324.3,
+    "qty": 1.249,
+    "outcome": "SL",
+    "pnl": -488.9588,
+    "duration": 6312.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64034.7,
+    "close": 64354.8,
+    "qty": 1.249,
+    "outcome": "SL",
+    "pnl": -488.0021,
+    "duration": 6741.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64149.1,
+    "close": 64469.8,
+    "qty": 1.247,
+    "outcome": "SL",
+    "pnl": -483.3927,
+    "duration": 18329.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64518.3,
+    "close": 64195.2,
+    "qty": 1.239,
+    "outcome": "SL",
+    "pnl": -488.0327,
+    "duration": 2393.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64100.6,
+    "close": 64421.6,
+    "qty": 1.248,
+    "outcome": "SL",
+    "pnl": -488.8256,
+    "duration": 3000.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64642.2,
+    "close": 64971.6,
+    "qty": 1.237,
+    "outcome": "SL",
+    "pnl": -496.0407,
+    "duration": 27508.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64900.0,
+    "close": 64576.3,
+    "qty": 1.232,
+    "outcome": "SL",
+    "pnl": -488.1408,
+    "duration": 17703.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64564.3,
+    "close": 64533.3,
+    "qty": 1.239,
+    "outcome": "SL",
+    "pnl": -49.5646,
+    "duration": 14186.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64790.8,
+    "close": 64466.9,
+    "qty": 1.234,
+    "outcome": "SL",
+    "pnl": -489.2031,
+    "duration": 11920.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64379.1,
+    "close": 65347.9,
+    "qty": 1.242,
+    "outcome": "3R WIN",
+    "pnl": 1115.4659,
+    "duration": 0.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64775.1,
+    "close": 65103.4,
+    "qty": 1.235,
+    "outcome": "SL",
+    "pnl": -493.6705,
+    "duration": 689.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64779.6,
+    "close": 65103.7,
+    "qty": 1.234,
+    "outcome": "SL",
+    "pnl": -484.7051,
+    "duration": 77324.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 65005.6,
+    "close": 65337.2,
+    "qty": 1.23,
+    "outcome": "SL",
+    "pnl": -489.4752,
+    "duration": 99852.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64986.9,
+    "close": 65319.9,
+    "qty": 1.231,
+    "outcome": "SL",
+    "pnl": -490.304,
+    "duration": 11107.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 65176.9,
+    "close": 64850.4,
+    "qty": 1.227,
+    "outcome": "SL",
+    "pnl": -492.8745,
+    "duration": 39563.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 64036.6,
+    "close": 64068.0,
+    "qty": 1.249,
+    "outcome": "SL",
+    "pnl": -51.1327,
+    "duration": 21016.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 64161.8,
+    "close": 63681.0,
+    "qty": 1.246,
+    "outcome": "SL (Trail)",
+    "pnl": 514.3157,
+    "duration": 22949.0
   }
 ]

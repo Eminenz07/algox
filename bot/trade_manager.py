@@ -305,57 +305,19 @@ class TradeManager:
         lv = trade.levels
 
         if trade.direction == "LONG":
-            # ── 1R: move SL to breakeven ─────────────────────────────────
+            # ── 1R Target: Close trade (TP Hit) ──────────────────────────
             if trade.state == LONG_ACTIVE and price >= lv.r1:
-                be_price = lv.entry + (lv.r_dist * self.be_offset_r)
-                self.exchange.set_stop_loss(trade.symbol, be_price)
-                lv.sl = be_price
-                with self._lock:
-                    trade.state = LONG_BE
-                logger.info("%s LONG 1R hit -> SL to breakeven with profit offset (%.4f)", trade.symbol, be_price)
-                self.notifier.sl_to_be(trade.symbol, "LONG", price)
-
-            # ── 2R: move SL to 1.5R ──────────────────────────────────────
-            if trade.state == LONG_BE and price >= lv.r2:
-                self.exchange.set_stop_loss(trade.symbol, lv.r1_5)
-                lv.sl = lv.r1_5
-                with self._lock:
-                    trade.state = LONG_LOCKED
-                logger.info("%s LONG 2R hit -> SL to 1.5R", trade.symbol)
-                self.notifier.sl_to_r1_5(trade.symbol, "LONG", price, lv.r1_5)
-
-            # ── 3R: close trade ───────────────────────────────────────────
-            if trade.state == LONG_LOCKED and price >= lv.r3:
                 self.exchange.close_position(trade.symbol, "LONG", trade.qty)
                 self.notifier.tp_hit(trade.symbol, "LONG", price)
-                self._close_trade(trade, outcome="3R WIN", close_price=price)
+                self._close_trade(trade, outcome="1R WIN", close_price=price)
                 return True
 
         else:  # SHORT
-            # ── 1R ───────────────────────────────────────────────────────
+            # ── 1R Target: Close trade (TP Hit) ──────────────────────────
             if trade.state == SHORT_ACTIVE and price <= lv.r1:
-                be_price = lv.entry - (lv.r_dist * self.be_offset_r)
-                self.exchange.set_stop_loss(trade.symbol, be_price)
-                lv.sl = be_price
-                with self._lock:
-                    trade.state = SHORT_BE
-                logger.info("%s SHORT 1R hit -> SL to breakeven with profit offset (%.4f)", trade.symbol, be_price)
-                self.notifier.sl_to_be(trade.symbol, "SHORT", price)
-
-            # ── 2R ───────────────────────────────────────────────────────
-            if trade.state == SHORT_BE and price <= lv.r2:
-                self.exchange.set_stop_loss(trade.symbol, lv.r1_5)
-                lv.sl = lv.r1_5
-                with self._lock:
-                    trade.state = SHORT_LOCKED
-                logger.info("%s SHORT 2R hit -> SL to 1.5R", trade.symbol)
-                self.notifier.sl_to_r1_5(trade.symbol, "SHORT", price, lv.r1_5)
-
-            # ── 3R ───────────────────────────────────────────────────────
-            if trade.state == SHORT_LOCKED and price <= lv.r3:
                 self.exchange.close_position(trade.symbol, "SHORT", trade.qty)
                 self.notifier.tp_hit(trade.symbol, "SHORT", price)
-                self._close_trade(trade, outcome="3R WIN", close_price=price)
+                self._close_trade(trade, outcome="1R WIN", close_price=price)
                 return True
 
         return False
