@@ -96,29 +96,6 @@ def api_logs():
         return jsonify({"logs": f"Error reading logs: {exc}"}), 500
 
 
-@app.route("/api/fetch-bybit")
-def api_fetch_bybit():
-    try:
-        from pybit.unified_trading import HTTP
-        api_key = _config["exchange"]["api_key"]
-        api_secret = _config["exchange"]["api_secret"]
-        demo = _config["exchange"].get("demo", True)
-        
-        session = HTTP(
-            testnet=False,
-            demo=demo,
-            api_key=api_key,
-            api_secret=api_secret
-        )
-        resp = session.get_closed_pnl(category="linear", limit=10)
-        records = resp.get("result", {}).get("list", [])
-        return jsonify({"success": True, "records": records})
-    except Exception as exc:
-        return jsonify({"success": False, "error": str(exc)}), 500
-
-
-
-
 @app.route("/api/settings", methods=["GET", "POST"])
 def api_settings():
     if not _config:

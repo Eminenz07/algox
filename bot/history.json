@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63962.8,
+    "close": 63641.3,
+    "qty": 1.25,
+    "outcome": "1R WIN",
+    "pnl": 314.1472,
+    "duration": 0.0
+  }
+]
