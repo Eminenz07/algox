@@ -270,9 +270,9 @@ class TradeManager:
 
         # Notify
         if direction == "LONG":
-            self.notifier.long_entry(symbol, fill_price, levels.sl, levels.r1_5, levels.r2, levels.r3, qty)
+            self.notifier.long_entry(symbol, fill_price, levels.sl, levels.r1, qty)
         else:
-            self.notifier.short_entry(symbol, fill_price, levels.sl, levels.r1_5, levels.r2, levels.r3, qty)
+            self.notifier.short_entry(symbol, fill_price, levels.sl, levels.r1, qty)
 
         self._fire_state_change()
         return True
@@ -308,7 +308,7 @@ class TradeManager:
             # ── 1R Target: Close trade (TP Hit) ──────────────────────────
             if trade.state == LONG_ACTIVE and price >= lv.r1:
                 self.exchange.close_position(trade.symbol, "LONG", trade.qty)
-                self.notifier.tp_hit(trade.symbol, "LONG", price)
+                self.notifier.tp_hit(trade.symbol, "LONG", price, trade.pnl)
                 self._close_trade(trade, outcome="1R WIN", close_price=price)
                 return True
 
@@ -316,7 +316,7 @@ class TradeManager:
             # ── 1R Target: Close trade (TP Hit) ──────────────────────────
             if trade.state == SHORT_ACTIVE and price <= lv.r1:
                 self.exchange.close_position(trade.symbol, "SHORT", trade.qty)
-                self.notifier.tp_hit(trade.symbol, "SHORT", price)
+                self.notifier.tp_hit(trade.symbol, "SHORT", price, trade.pnl)
                 self._close_trade(trade, outcome="1R WIN", close_price=price)
                 return True
 
@@ -335,8 +335,10 @@ class TradeManager:
             return  # already removed (e.g. 3R close)
 
         logger.info("Position closed externally for %s (SL hit or manual)", symbol)
-        self.notifier.sl_hit(trade.symbol, trade.direction)
-        self._close_trade(trade, outcome="SL", close_price=close_price)
+        exit_price = close_price if close_price > 0.0 else trade.levels.sl
+        pnl = (exit_price - trade.entry) * trade.qty if trade.direction == "LONG" else (trade.entry - exit_price) * trade.qty
+        self.notifier.sl_hit(trade.symbol, trade.direction, exit_price, pnl)
+        self._close_trade(trade, outcome="SL", close_price=exit_price)
         self._fire_state_change()
 
     # ── Internal Helpers ──────────────────────────────────────────────────────

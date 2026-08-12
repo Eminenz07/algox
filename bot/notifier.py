@@ -33,55 +33,51 @@ class Notifier:
 
     # ── Convenience helpers ───────────────────────────────────────────────────
 
-    def long_entry(self, symbol: str, entry: float, sl: float,
-                   r1_5: float, r2: float, r3: float, qty: float):
+    def long_entry(self, symbol: str, entry: float, sl: float, tp: float, qty: float):
         self.send(
-            f"🟢 <b>LONG ENTRY</b>\n"
-            f"Symbol : <b>{symbol}</b>\n"
-            f"Entry  : {entry:.4f}\n"
-            f"SL     : {sl:.4f}\n"
-            f"1.5R   : {r1_5:.4f}\n"
-            f"2R     : {r2:.4f}\n"
-            f"3R (TP): {r3:.4f}\n"
-            f"Qty    : {qty}"
+            f"🟢 <b>{symbol} — LONG ENTRY</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━\n"
+            f"📊 <b>Position Size:</b> {qty:.4f} BTC\n"
+            f"💰 <b>Entry Price:</b> {entry:.2f} USDT\n"
+            f"🎯 <b>Take Profit (1R):</b> {tp:.2f} USDT\n"
+            f"🛡️ <b>Stop Loss (-1R):</b> {sl:.2f} USDT\n"
+            f"━━━━━━━━━━━━━━━━━━━━\n"
+            f"🤖 <i>ALGOX 1:1 R:R Strategy</i>"
         )
 
-    def short_entry(self, symbol: str, entry: float, sl: float,
-                    r1_5: float, r2: float, r3: float, qty: float):
+    def short_entry(self, symbol: str, entry: float, sl: float, tp: float, qty: float):
         self.send(
-            f"🔴 <b>SHORT ENTRY</b>\n"
-            f"Symbol : <b>{symbol}</b>\n"
-            f"Entry  : {entry:.4f}\n"
-            f"SL     : {sl:.4f}\n"
-            f"1.5R   : {r1_5:.4f}\n"
-            f"2R     : {r2:.4f}\n"
-            f"3R (TP): {r3:.4f}\n"
-            f"Qty    : {qty}"
+            f"🔴 <b>{symbol} — SHORT ENTRY</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━\n"
+            f"📊 <b>Position Size:</b> {qty:.4f} BTC\n"
+            f"💰 <b>Entry Price:</b> {entry:.2f} USDT\n"
+            f"🎯 <b>Take Profit (1R):</b> {tp:.2f} USDT\n"
+            f"🛡️ <b>Stop Loss (-1R):</b> {sl:.2f} USDT\n"
+            f"━━━━━━━━━━━━━━━━━━━━\n"
+            f"🤖 <i>ALGOX 1:1 R:R Strategy</i>"
         )
 
-    def sl_to_be(self, symbol: str, direction: str, price: float):
+    def tp_hit(self, symbol: str, direction: str, price: float, pnl: float = 0.0):
         self.send(
-            f"⚡ <b>1.5R HIT — SL → Breakeven</b>\n"
-            f"{symbol} {direction}\n"
-            f"Price: {price:.4f} | New SL: Breakeven"
+            f"🎉 <b>{symbol} — TAKE PROFIT HIT!</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━\n"
+            f"🎯 <b>Outcome:</b> 1R WIN ✅\n"
+            f"💰 <b>Exit Price:</b> {price:.2f} USDT\n"
+            f"📈 <b>Trade PnL:</b> +{pnl:.2f} USDT\n"
+            f"━━━━━━━━━━━━━━━━━━━━\n"
+            f"🤖 <i>ALGOX 1:1 R:R Strategy</i>"
         )
 
-    def sl_to_r1_5(self, symbol: str, direction: str, price: float, new_sl: float):
+    def sl_hit(self, symbol: str, direction: str, price: float, pnl: float = 0.0):
         self.send(
-            f"⚡ <b>2R HIT — SL → 1.5R</b>\n"
-            f"{symbol} {direction}\n"
-            f"Price: {price:.4f} | New SL: {new_sl:.4f}"
+            f"❌ <b>{symbol} — STOP LOSS HIT</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━\n"
+            f"📉 <b>Outcome:</b> Full Loss (1R) 🔴\n"
+            f"💰 <b>Exit Price:</b> {price:.2f} USDT\n"
+            f"📉 <b>Trade PnL:</b> {pnl:.2f} USDT\n"
+            f"━━━━━━━━━━━━━━━━━━━━\n"
+            f"🤖 <i>ALGOX 1:1 R:R Strategy</i>"
         )
-
-    def tp_hit(self, symbol: str, direction: str, price: float):
-        self.send(
-            f"🎯 <b>3R HIT — FULL TP!</b>\n"
-            f"{symbol} {direction}\n"
-            f"Closed at: {price:.4f} ✅"
-        )
-
-    def sl_hit(self, symbol: str, direction: str):
-        self.send(f"❌ <b>SL HIT</b>\n{symbol} {direction} position closed by stop loss.")
 
     def info(self, message: str):
         self.send(f"ℹ️ {message}")
