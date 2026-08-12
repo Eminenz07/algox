@@ -96,64 +96,6 @@ def api_logs():
         return jsonify({"logs": f"Error reading logs: {exc}"}), 500
 
 
-@app.route("/api/fetch-bybit-chunks")
-def api_fetch_bybit_chunks():
-    try:
-        from pybit.unified_trading import HTTP
-        import datetime
-        import time
-        api_key = _config["exchange"]["api_key"]
-        api_secret = _config["exchange"]["api_secret"]
-        demo = _config["exchange"].get("demo", True)
-        
-        session = HTTP(
-            testnet=False,
-            demo=demo,
-            api_key=api_key,
-            api_secret=api_secret
-        )
-        
-        start_dt = datetime.datetime(2026, 7, 26, 0, 0, 0)
-        now = datetime.datetime.now()
-        chunks = []
-        curr = now
-        while curr > start_dt:
-            prev = curr - datetime.timedelta(days=7)
-            if prev < start_dt:
-                prev = start_dt
-            start_ms = int(prev.timestamp() * 1000)
-            end_ms = int(curr.timestamp() * 1000)
-            chunks.append((start_ms, end_ms))
-            curr = prev
-            
-        all_records = {}
-        for idx, (start_ms, end_ms) in enumerate(chunks):
-            cursor = ""
-            while True:
-                kwargs = {
-                    "category": "linear",
-                    "limit": 100,
-                    "startTime": start_ms,
-                    "endTime": end_ms
-                }
-                if cursor:
-                    kwargs["cursor"] = cursor
-                resp = session.get_closed_pnl(**kwargs)
-                records = resp.get("result", {}).get("list", [])
-                if not records:
-                    break
-                for r in records:
-                    all_records[r["orderId"]] = r
-                next_cursor = resp.get("result", {}).get("nextPageCursor", "")
-                if not next_cursor or next_cursor == cursor:
-                    break
-                cursor = next_cursor
-                time.sleep(0.1)
-                
-        return jsonify({"success": True, "records": list(all_records.values())})
-    except Exception as exc:
-        return jsonify({"success": False, "error": str(exc)}), 500
-
 
 
 @app.route("/api/settings", methods=["GET", "POST"])
