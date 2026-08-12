@@ -1,12 +1,42 @@
 [
   {
     "symbol": "BTCUSDT",
+    "direction": "LONG",
+    "entry": 63717.4,
+    "close": 64038.6,
+    "qty": 1.255,
+    "outcome": "1R WIN",
+    "pnl": 308.9384,
+    "duration": 0.0
+  },
+  {
+    "symbol": "BTCUSDT",
     "direction": "SHORT",
     "entry": 63962.8,
     "close": 63641.3,
     "qty": 1.25,
     "outcome": "1R WIN",
     "pnl": 314.1472,
+    "duration": 0.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63763.5,
+    "close": 63444.1,
+    "qty": 1.254,
+    "outcome": "1R WIN",
+    "pnl": 312.7925,
+    "duration": 0.0
+  },
+  {
+    "symbol": "BTCUSDT",
+    "direction": "SHORT",
+    "entry": 63293.1,
+    "close": 63610.3,
+    "qty": 1.263,
+    "outcome": "SL",
+    "pnl": -485.5302,
     "duration": 0.0
   }
 ]
