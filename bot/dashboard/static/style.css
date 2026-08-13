@@ -355,9 +355,10 @@ body {
   background: var(--surface);
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
-.hist-table { width: 100%; border-collapse: collapse; }
+.hist-table { width: 100%; border-collapse: collapse; min-width: 600px; }
 .hist-table thead th {
   padding: 14px 20px;
   text-align: left;
@@ -428,4 +429,67 @@ body {
 .settings-grid .btn-primary {
   grid-column: 1 / -1;
   margin-top: 12px;
+}
+
+/* ── RESPONSIVE DESIGN (MOBILE & TABLET) ───────────────────────────── */
+
+@media (max-width: 1024px) {
+  .dashboard-container {
+    flex-direction: column;
+    padding: 20px;
+    gap: 24px;
+  }
+  .sidebar {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+    flex-direction: column;
+    padding: 16px 20px;
+    gap: 16px;
+    align-items: stretch;
+  }
+  .header-left, .header-right {
+    justify-content: space-between;
+    align-items: center;
+  }
+  .stat-box {
+    min-width: 110px;
+    padding: 4px 12px;
+  }
+  .stat-value {
+    font-size: 15px;
+  }
+  .settings-grid {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  .tabs-nav {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tab-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .logo-text {
+    font-size: 20px;
+  }
+  .auth-card {
+    width: 100%;
+    margin: 20px;
+    padding: 20px;
+  }
 }

@@ -143,7 +143,7 @@ def save_user_credentials(user_id: int, api_key: str, encrypted_secret: str, iv:
                     encrypted_api_secret = EXCLUDED.encrypted_api_secret, 
                     encryption_iv = EXCLUDED.encryption_iv,
                     updated_at = CURRENT_TIMESTAMP
-            """)
+            """, (user_id, api_key, encrypted_secret, iv))
         conn.commit()
     except Exception as e:
         conn.rollback()
