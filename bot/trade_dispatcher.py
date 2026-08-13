@@ -81,10 +81,13 @@ def execute_user_trade(user_cred: dict, symbol: str, direction: str, entry_price
             
         risk_mode = user_cred.get("risk_mode") or "PERCENT"
         risk_val = user_cred.get("risk_amount") or config["trading"].get("risk_per_trade_pct", 1.0)
+        fixed_capital = user_cred.get("fixed_capital") or config["trading"].get("fixed_capital_base", 50000.0)
         
         if risk_mode == "USD":
             risk_usd = float(risk_val)
-        else:
+        elif risk_mode == "PERCENT_FIXED":
+            risk_usd = float(fixed_capital) * (float(risk_val) / 100.0)
+        else:  # PERCENT (Live Balance)
             risk_usd = balance * (float(risk_val) / 100.0)
             
         sl_pct = config["strategy"].get("sl_pct", 0.5)

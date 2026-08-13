@@ -285,6 +285,7 @@ function fetchSettings() {
           <label>Risk Mode</label>
           <select id="set-risk-mode" onchange="toggleRiskModeHelp()">
             <option value="PERCENT" ${settings.risk_mode === 'PERCENT' ? 'selected' : ''}>Percentage (%) of balance</option>
+            <option value="PERCENT_FIXED" ${settings.risk_mode === 'PERCENT_FIXED' ? 'selected' : ''}>Percentage (%) of Fixed Capital</option>
             <option value="USD" ${settings.risk_mode === 'USD' ? 'selected' : ''}>Fixed USD ($) Amount</option>
           </select>
         </div>
@@ -292,6 +293,11 @@ function fetchSettings() {
         <div class="input-group">
           <label id="risk-amount-label">Risk Value</label>
           <input type="number" step="any" id="set-risk-amount" value="${settings.risk_amount}" min="0.1" required />
+        </div>
+        
+        <div class="input-group" id="fixed-capital-group">
+          <label>Fixed Capital Base ($ USD)</label>
+          <input type="number" id="set-fixed-capital" value="${settings.fixed_capital}" min="1" required />
         </div>
         
         <div class="input-group" style="grid-column: 1/-1;">
@@ -357,8 +363,14 @@ function fetchSettings() {
 function toggleRiskModeHelp() {
   const modeSelect = document.getElementById('set-risk-mode');
   const label = document.getElementById('risk-amount-label');
-  if (modeSelect && label) {
-    label.textContent = modeSelect.value === 'USD' ? 'Risk Amount ($ USD)' : 'Risk Percentage (%)';
+  const capGroup = document.getElementById('fixed-capital-group');
+  if (modeSelect) {
+    if (label) {
+      label.textContent = modeSelect.value === 'USD' ? 'Risk Amount ($ USD)' : 'Risk Percentage (%)';
+    }
+    if (capGroup) {
+      capGroup.style.display = modeSelect.value === 'PERCENT_FIXED' ? 'block' : 'none';
+    }
   }
 }
 
@@ -383,7 +395,8 @@ document.getElementById('settings-form').addEventListener('submit', function(e) 
   const payload = {
     leverage: parseInt(document.getElementById('set-leverage').value),
     risk_mode: document.getElementById('set-risk-mode').value,
-    risk_amount: parseFloat(document.getElementById('set-risk-amount').value)
+    risk_amount: parseFloat(document.getElementById('set-risk-amount').value),
+    fixed_capital: parseFloat(document.getElementById('set-fixed-capital').value)
   };
 
   if (userIsAdmin) {

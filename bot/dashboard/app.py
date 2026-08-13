@@ -203,7 +203,8 @@ def api_settings():
             leverage = int(data.get("leverage", 10))
             risk_mode = data.get("risk_mode", "PERCENT")
             risk_amount = float(data.get("risk_amount", 1.0))
-            db_model.update_user_settings(current_user.id, leverage, risk_mode, risk_amount)
+            fixed_capital = float(data.get("fixed_capital", 50000.0))
+            db_model.update_user_settings(current_user.id, leverage, risk_mode, risk_amount, fixed_capital)
             
             if is_admin and "config" in data:
                 # Admins can edit full configuration parameters
@@ -227,7 +228,8 @@ def api_settings():
     user_settings = {
         "leverage": creds["leverage"] if creds else 10,
         "risk_mode": creds["risk_mode"] if creds else "PERCENT",
-        "risk_amount": creds["risk_amount"] if creds else 1.0
+        "risk_amount": creds["risk_amount"] if creds else 1.0,
+        "fixed_capital": creds["fixed_capital"] if creds else 50000.0
     }
 
     sanitized = {}

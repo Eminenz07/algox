@@ -51,6 +51,7 @@ def init_db(conn_str: str, admin_email: str, admin_password: str, admin_username
             cur.execute("ALTER TABLE user_credentials ADD COLUMN IF NOT EXISTS leverage INTEGER DEFAULT 10;")
             cur.execute("ALTER TABLE user_credentials ADD COLUMN IF NOT EXISTS risk_mode VARCHAR(10) DEFAULT 'PERCENT';")
             cur.execute("ALTER TABLE user_credentials ADD COLUMN IF NOT EXISTS risk_amount DOUBLE PRECISION DEFAULT 1.0;")
+            cur.execute("ALTER TABLE user_credentials ADD COLUMN IF NOT EXISTS fixed_capital DOUBLE PRECISION DEFAULT 50000.0;")
 
             # 3. Create TRADES table
             cur.execute("""
@@ -198,15 +199,15 @@ def log_trade(user_id: int, symbol: str, direction: str, entry_price: float, clo
     finally:
         conn.close()
 
-def update_user_settings(user_id: int, leverage: int, risk_mode: str, risk_amount: float):
+def update_user_settings(user_id: int, leverage: int, risk_mode: str, risk_amount: float, fixed_capital: float):
     conn = get_connection()
     try:
         with conn.cursor() as cur:
             cur.execute("""
                 UPDATE user_credentials 
-                SET leverage = %s, risk_mode = %s, risk_amount = %s, updated_at = CURRENT_TIMESTAMP
+                SET leverage = %s, risk_mode = %s, risk_amount = %s, fixed_capital = %s, updated_at = CURRENT_TIMESTAMP
                 WHERE user_id = %s
-            """, (leverage, risk_mode, risk_amount, user_id))
+            """, (leverage, risk_mode, risk_amount, fixed_capital, user_id))
         conn.commit()
     except Exception as e:
         conn.rollback()
