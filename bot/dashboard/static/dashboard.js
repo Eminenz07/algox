@@ -276,22 +276,31 @@ function fetchSettings() {
       }
 
       let html = '';
-      if (!userIsAdmin) {
-        // Normal User: can only modify leverage and risk per trade pct
-        const riskVal = cfg["trading"] ? cfg["trading"]["risk_per_trade_pct"] : 1.0;
-        const levVal = cfg["trading"] ? cfg["trading"]["leverage"] : 10;
+      // Leverage and Risk Controls (applicable to all users)
+      const settings = data.user_settings;
+      html += `
+        <div style="grid-column: 1/-1; margin-bottom: 8px; font-weight:700; color:var(--text-white);">📈 Trading Risk Setup</div>
         
-        html += `
-          <div class="input-group">
-            <label>Risk Per Trade (%)</label>
-            <input type="number" step="0.1" id="set-risk" value="${riskVal}" min="0.1" max="10" required />
-          </div>
-          <div class="input-group">
-            <label>Leverage (x)</label>
-            <input type="number" id="set-leverage" value="${levVal}" min="1" max="50" required />
-          </div>
-        `;
-      } else {
+        <div class="input-group">
+          <label>Risk Mode</label>
+          <select id="set-risk-mode" onchange="toggleRiskModeHelp()">
+            <option value="PERCENT" ${settings.risk_mode === 'PERCENT' ? 'selected' : ''}>Percentage (%) of balance</option>
+            <option value="USD" ${settings.risk_mode === 'USD' ? 'selected' : ''}>Fixed USD ($) Amount</option>
+          </select>
+        </div>
+        
+        <div class="input-group">
+          <label id="risk-amount-label">Risk Value</label>
+          <input type="number" step="any" id="set-risk-amount" value="${settings.risk_amount}" min="0.1" required />
+        </div>
+        
+        <div class="input-group" style="grid-column: 1/-1;">
+          <label>Leverage (x)</label>
+          <input type="number" id="set-leverage" value="${settings.leverage}" min="1" max="50" required />
+        </div>
+      `;
+
+      if (userIsAdmin) {
         // Admin user: Can edit full key configs
         html += `<div style="grid-column: 1/-1; margin-bottom: 20px; font-weight:700; color:var(--blue);">🔑 SYSTEM ADMINISTRATOR CONFIGURATION</div>`;
         for (const [cat, submap] of Object.entries(cfg)) {
@@ -341,7 +350,16 @@ function fetchSettings() {
         <div id="settings-status" style="grid-column: 1/-1; text-align:center; font-weight:600; font-size:12px; margin-top:10px;"></div>
       `;
       form.innerHTML = html;
+      toggleRiskModeHelp();
     });
+}
+
+function toggleRiskModeHelp() {
+  const modeSelect = document.getElementById('set-risk-mode');
+  const label = document.getElementById('risk-amount-label');
+  if (modeSelect && label) {
+    label.textContent = modeSelect.value === 'USD' ? 'Risk Amount ($ USD)' : 'Risk Percentage (%)';
+  }
 }
 
 function disconnectFromSettings() {
@@ -362,28 +380,28 @@ document.getElementById('settings-form').addEventListener('submit', function(e) 
   statusDiv.textContent = "Saving...";
   statusDiv.style.color = "var(--text-muted)";
   
-  let payload = {};
-  if (!userIsAdmin) {
-    payload = {
-      risk_per_trade_pct: parseFloat(document.getElementById('set-risk').value),
-      leverage: parseInt(document.getElementById('set-leverage').value)
-    };
-  } else {
-    // Collect all inputs
+  const payload = {
+    leverage: parseInt(document.getElementById('set-leverage').value),
+    risk_mode: document.getElementById('set-risk-mode').value,
+    risk_amount: parseFloat(document.getElementById('set-risk-amount').value)
+  };
+
+  if (userIsAdmin) {
+    payload.config = {};
     const inputs = document.querySelectorAll('[id^="admin-"]');
     inputs.forEach(input => {
       const parts = input.id.split('-');
       const cat = parts[1];
       const subkey = parts[2];
       
-      if (!payload[cat]) payload[cat] = {};
+      if (!payload.config[cat]) payload.config[cat] = {};
       
       let val = input.value;
       if (val === 'true') val = true;
       else if (val === 'false') val = false;
       else if (!isNaN(val) && val.trim() !== '') val = Number(val);
       
-      payload[cat][subkey] = val;
+      payload.config[cat][subkey] = val;
     });
   }
 

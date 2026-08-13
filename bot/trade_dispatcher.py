@@ -69,7 +69,7 @@ def execute_user_trade(user_cred: dict, symbol: str, direction: str, entry_price
             return
 
         # Setup leverage & isolated margin
-        leverage = config["trading"].get("leverage", 10)
+        leverage = user_cred.get("leverage") or config["trading"].get("leverage", 10)
         client.set_isolated_margin(symbol, leverage)
         client.set_leverage(symbol, leverage)
         
@@ -79,15 +79,27 @@ def execute_user_trade(user_cred: dict, symbol: str, direction: str, entry_price
             logger.warning("User %s balance is $0. Cannot place trade.", email)
             return
             
-        risk_pct = config["trading"].get("risk_per_trade_pct", 1.0)
-        sl_pct = config["strategy"].get("sl_pct", 0.5)
+        risk_mode = user_cred.get("risk_mode") or "PERCENT"
+        risk_val = user_cred.get("risk_amount") or config["trading"].get("risk_per_trade_pct", 1.0)
         
-        risk_mgr = RiskManager(sl_pct=sl_pct, risk_per_trade_pct=risk_pct)
+        if risk_mode == "USD":
+            risk_usd = float(risk_val)
+        else:
+            risk_usd = balance * (float(risk_val) / 100.0)
+            
+        sl_pct = config["strategy"].get("sl_pct", 0.5)
+        r_price = entry_price * (sl_pct / 100.0)
+        
         symbol_info = client.get_symbol_info(symbol)
-        qty = risk_mgr.calculate_qty(balance, entry_price, symbol_info["qty_step"])
+        qty_step = symbol_info["qty_step"]
+        
+        import math
+        raw_qty = risk_usd / r_price
+        qty = math.floor(raw_qty / qty_step) * qty_step
+        qty = round(qty, 8)
         
         if qty <= 0:
-            logger.warning("User %s calculated quantity is 0 (balance too small?). Skipping.", email)
+            logger.warning("User %s calculated quantity is 0 (balance or risk amount too small?). Skipping.", email)
             return
             
         # Place Market Entry
@@ -102,10 +114,10 @@ def execute_user_trade(user_cred: dict, symbol: str, direction: str, entry_price
             fill_price = entry_price  # fallback
             
         # Calculate stops
+        risk_mgr = RiskManager(sl_pct=sl_pct, risk_per_trade_pct=1.0)  # dummy risk pct for levels calculation
         levels = risk_mgr.calculate_levels(fill_price, direction)
         
         # Place TP and SL directly on Bybit Futures
-        # levels.r1 is the 1R profit target, levels.sl is the stop loss
         tp_price = levels.r1
         sl_price = levels.sl
         

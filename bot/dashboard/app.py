@@ -199,39 +199,46 @@ def api_settings():
         try:
             data = request.json
             
-            # Non-admins can only modify user risk and leverage settings
-            if not is_admin:
-                risk_val = float(data.get("risk_per_trade_pct", 1.0))
-                lev_val = int(data.get("leverage", 10))
-                # Update globally or we can store in database for user session config
-                _config["trading"]["risk_per_trade_pct"] = risk_val
-                _config["trading"]["leverage"] = lev_val
-            else:
+            # Save user settings to database
+            leverage = int(data.get("leverage", 10))
+            risk_mode = data.get("risk_mode", "PERCENT")
+            risk_amount = float(data.get("risk_amount", 1.0))
+            db_model.update_user_settings(current_user.id, leverage, risk_mode, risk_amount)
+            
+            if is_admin and "config" in data:
                 # Admins can edit full configuration parameters
-                for cat, submap in data.items():
+                admin_cfg = data["config"]
+                for cat, submap in admin_cfg.items():
                     if cat in _config:
                         for subkey, subval in submap.items():
                             if subkey in _config[cat]:
                                 _config[cat][subkey] = subval
                                 
-            # Save configuration changes
-            with open("config.json", "w") as f:
-                json.dump(_config, f, indent=2)
+                # Save configuration changes
+                with open("config.json", "w") as f:
+                    json.dump(_config, f, indent=2)
                 
             return jsonify({"status": "success", "message": "Settings saved successfully!"})
         except Exception as e:
             return jsonify({"status": "error", "message": str(e)}), 400
 
     # GET request: return sanitized settings
-    # Hide key parameters unless is_admin
+    creds = db_model.get_user_credentials(current_user.id)
+    user_settings = {
+        "leverage": creds["leverage"] if creds else 10,
+        "risk_mode": creds["risk_mode"] if creds else "PERCENT",
+        "risk_amount": creds["risk_amount"] if creds else 1.0
+    }
+
     sanitized = {}
     for k, v in _config.items():
         if k in ("exchange", "telegram") and not is_admin:
-            continue  # hide completely for normal users
+            continue
         sanitized[k] = v
         
     return jsonify({
         "config": sanitized,
+        "user_settings": user_settings,
         "is_admin": is_admin
     })
 
