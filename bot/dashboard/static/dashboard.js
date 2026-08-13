@@ -326,6 +326,7 @@ function fetchSettings() {
           }
           html += `</div></div>`;
         }
+      }
       if (hasCredentials) {
         html += `
           <div style="grid-column: 1 / -1; border-top: 1px solid var(--border); padding-top: 24px; margin-top: 24px; text-align: center;">
