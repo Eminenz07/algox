@@ -17,7 +17,6 @@ import datetime
 
 from exchange      import BybitClient
 from strategy      import detect_signal
-from trade_manager import TradeManager
 
 logger = logging.getLogger(__name__)
 
