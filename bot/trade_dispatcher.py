@@ -200,19 +200,18 @@ def track_active_positions(config: dict):
                 
                 if records:
                     rec = records[0]
-                    exit_price = float(rec["avgExitPrice"])
-                    pnl = float(rec["closedPnl"])
-                    # If PnL > 0, it was a TP hit, otherwise SL
-                    outcome = "1R WIN" if pnl > 0 else "SL"
-                else:
-                    # Fallback if history query fails (e.g. API delays)
-                    # We can fetch the last price
-                    last_price = client.get_last_price(symbol)
-                    if last_price:
-                        exit_price = last_price
-                        # Estimate PnL
-                        pnl = qty * (exit_price - entry_price) if direction == "LONG" else qty * (entry_price - exit_price)
+                    rec_entry = float(rec["avgEntryPrice"])
+                    if abs(rec_entry - entry_price) < (entry_price * 0.005):  # allow 0.5% price difference for slippage/averaging
+                        exit_price = float(rec["avgExitPrice"])
+                        pnl = float(rec["closedPnl"])
                         outcome = "1R WIN" if pnl > 0 else "SL"
+                    else:
+                        logger.info("Closed PnL entry price %.2f does not match DB trade entry price %.2f. Waiting for exchange API sync...", rec_entry, entry_price)
+                        continue
+                else:
+                    # Stale history / API lag: skip database update and retry on next poll
+                    logger.info("No closed PnL records found on Bybit. Waiting for exchange API sync...")
+                    continue
                 
                 # Update database record
                 conn = db_model.get_connection()

@@ -10,9 +10,7 @@
   },
   "trading": {
     "pairs": [
-      "BTCUSDT",
-      "ETHUSDT",
-      "SOLUSDT"
+      "BTCUSDT"
     ],
     "active_trading_pairs": [
       "BTCUSDT"
