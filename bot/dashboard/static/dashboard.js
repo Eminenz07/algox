@@ -41,11 +41,11 @@ function buildCard(t) {
       </div>
       <div class="level-row">
         <span class="level-label">SL (-1R)</span>
-        <span class="level-price" style="color:var(--red);">${fmt(t.entry_price * 0.995 if t.direction == 'LONG' else t.entry_price * 1.005)}</span>
+        <span class="level-price" style="color:var(--red);">${fmt(t.direction === 'LONG' ? t.entry_price * 0.995 : t.entry_price * 1.005)}</span>
       </div>
       <div class="level-row">
         <span class="level-label">TP (+1R)</span>
-        <span class="level-price" style="color:var(--green);">${fmt(t.entry_price * 1.005 if t.direction == 'LONG' else t.entry_price * 0.995)}</span>
+        <span class="level-price" style="color:var(--green);">${fmt(t.direction === 'LONG' ? t.entry_price * 1.005 : t.entry_price * 0.995)}</span>
       </div>
     </div>
 
