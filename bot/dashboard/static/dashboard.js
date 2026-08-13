@@ -4,6 +4,7 @@
 
 let currentTab = 'dashboard';
 let userIsAdmin = false;
+let hasCredentials = false;
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -149,21 +150,25 @@ function checkCredentialsStatus() {
   const form = document.getElementById('credentials-form');
   const disconnectSec = document.getElementById('disconnect-section');
   const activeKeySpan = document.getElementById('active-api-key');
+  const sidebar = document.querySelector('.sidebar');
 
   fetch('/api/credentials')
     .then(res => res.json())
     .then(data => {
-      if (data.has_credentials) {
+      hasCredentials = data.has_credentials;
+      if (hasCredentials) {
         statusDiv.innerHTML = "Connected Successfully ✅";
         statusDiv.className = "status-alert success";
         form.style.display = "none";
         disconnectSec.style.display = "block";
         activeKeySpan.textContent = data.api_key;
+        if (sidebar) sidebar.style.display = 'none';
       } else {
         statusDiv.innerHTML = "API Keys Disconnected ❌";
         statusDiv.className = "status-alert error";
         form.style.display = "block";
         disconnectSec.style.display = "none";
+        if (sidebar) sidebar.style.display = 'block';
       }
     })
     .catch(err => {
@@ -321,6 +326,13 @@ function fetchSettings() {
           }
           html += `</div></div>`;
         }
+      if (hasCredentials) {
+        html += `
+          <div style="grid-column: 1 / -1; border-top: 1px solid var(--border); padding-top: 24px; margin-top: 24px; text-align: center;">
+            <p style="color:var(--text-muted); font-size:12px; margin-bottom:12px;">Your account keys are active. If you want to connect a different account, disconnect them below.</p>
+            <button type="button" class="btn-danger" style="width: auto; padding: 10px 24px; display: inline-block;" onclick="disconnectFromSettings()">Disconnect Bybit Keys</button>
+          </div>
+        `;
       }
 
       html += `
@@ -328,6 +340,18 @@ function fetchSettings() {
         <div id="settings-status" style="grid-column: 1/-1; text-align:center; font-weight:600; font-size:12px; margin-top:10px;"></div>
       `;
       form.innerHTML = html;
+    });
+}
+
+function disconnectFromSettings() {
+  if (!confirm("Are you sure you want to disconnect your Bybit API keys? Your running bot will stop placing new orders.")) return;
+  
+  fetch('/api/credentials', { method: 'DELETE' })
+    .then(res => res.json())
+    .then(data => {
+      checkCredentialsStatus();
+      fetchState();
+      fetchSettings();
     });
 }
 
