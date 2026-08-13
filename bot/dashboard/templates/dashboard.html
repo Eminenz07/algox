@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALGOX SaaS — Live Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+<!-- ── Header ──────────────────────────────────────────────── -->
+<header class="header">
+  <div class="header-left">
+    <div class="logo">
+      <span class="logo-icon">🚀</span>
+      <span class="logo-text">ALGOX<span class="logo-sub"> SaaS</span></span>
+    </div>
+    <div class="user-info">
+      <span>Welcome, <b>{{ current_user.username }}</b></span>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="stat-box">
+      <span class="stat-label">ACCOUNT EQUITY</span>
+      <span class="stat-value" id="balance">—</span>
+    </div>
+    <a href="{{ url_for('logout') }}" class="btn-logout">Logout 🚪</a>
+  </div>
+</header>
+
+<!-- ── Main Dashboard Container ──────────────────────────────── -->
+<div class="dashboard-container">
+  
+  <!-- Left Panel: API Credentials -->
+  <aside class="sidebar">
+    <div class="glass-card">
+      <h3>🔑 Bybit Demo Connection</h3>
+      <p class="subtitle">Connect your Unified Testnet account keys to allow ALGOX to place orders.</p>
+      
+      <div id="credentials-status" class="status-alert info">
+        Checking status...
+      </div>
+      
+      <form id="credentials-form" style="display:none;">
+        <div class="input-group">
+          <label>Bybit Demo API Key</label>
+          <input type="text" id="api_key" placeholder="Enter API Key" required />
+        </div>
+        <div class="input-group">
+          <label>Bybit Demo API Secret</label>
+          <input type="password" id="api_secret" placeholder="Enter API Secret" required />
+        </div>
+        <button type="submit" class="btn-primary">Connect Demo Account</button>
+      </form>
+      
+      <div id="disconnect-section" style="display:none;">
+        <div class="api-key-display">
+          <span class="key-label">Active Key:</span>
+          <span class="key-value" id="active-api-key">—</span>
+        </div>
+        <button id="btn-disconnect" class="btn-danger">Disconnect Keys</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Right Panel: Tabs Content -->
+  <main class="main-content">
+    <div class="tabs-nav">
+      <button class="tab-btn active" id="btn-dashboard" onclick="switchTab('dashboard')">📈 Personal Stats & Trades</button>
+      <button class="tab-btn" id="btn-settings" onclick="switchTab('settings')">⚙️ Settings</button>
+      <button class="tab-btn" id="btn-logs" style="display:none;" onclick="switchTab('logs')">📋 System Logs (Admin)</button>
+    </div>
+
+    <!-- TAB: Dashboard -->
+    <div id="tab-dashboard" class="tab-pane active">
+      <!-- Active Trades -->
+      <section class="section">
+        <h2 class="section-title">⚡ Active Positions</h2>
+        <div class="cards-grid" id="tradesGrid">
+          <div class="empty-state">No open positions. Waiting for signal…</div>
+        </div>
+      </section>
+
+      <!-- Trade History -->
+      <section class="section">
+        <h2 class="section-title">📋 Trade History</h2>
+        <div class="table-wrap">
+          <table class="hist-table">
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Direction</th>
+                <th>Entry Price</th>
+                <th>Close Price</th>
+                <th>Outcome</th>
+                <th>PnL (USDT)</th>
+                <th>Closed At</th>
+              </tr>
+            </thead>
+            <tbody id="histBody">
+              <tr><td colspan="7" class="empty-row">No closed trades yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- TAB: Settings -->
+    <div id="tab-settings" class="tab-pane">
+      <section class="section">
+        <h2 class="section-title">⚙️ Account Settings</h2>
+        <form id="settings-form" class="settings-grid">
+          <div class="empty-state">Loading configuration...</div>
+        </form>
+      </section>
+    </div>
+
+    <!-- TAB: Logs -->
+    <div id="tab-logs" class="tab-pane">
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">📋 System Logs</h2>
+          <button class="btn-refresh" onclick="fetchLogs()">🔄 Refresh Logs</button>
+        </div>
+        <div class="log-container">
+          <pre id="logPre">Loading logs...</pre>
+        </div>
+      </section>
+    </div>
+
+  </main>
+</div>
+
+<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>

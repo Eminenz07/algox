@@ -32,11 +32,20 @@ logging.basicConfig(
 logger = logging.getLogger("main")
 
 
+def load_env():
+    if os.path.exists(".env"):
+        with open(".env", "r") as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    key, val = line.split("=", 1)
+                    os.environ[key] = val
+
 def load_config(path: str = "config.json") -> dict:
     with open(path, "r") as f:
         cfg = json.load(f)
     
-    # Environment variable overrides for secure cloud deployment (e.g. HuggingFace Secrets)
+    # Environment variable overrides
     if os.environ.get("BYBIT_API_KEY"):
         cfg["exchange"]["api_key"] = os.environ["BYBIT_API_KEY"]
     if os.environ.get("BYBIT_API_SECRET"):
@@ -50,81 +59,59 @@ def load_config(path: str = "config.json") -> dict:
 
 
 def main():
+    load_env()
     cfg = load_config()
+    
     logger.info("=" * 60)
-    logger.info("  ALGOX Trading Bot starting...")
+    logger.info("  ALGOX Multi-Tenant SaaS Bot starting...")
     logger.info("  Pairs : %s", cfg["trading"]["pairs"])
-    logger.info("  TF    : %s min  |  Leverage: %dx  |  Risk: %.1f%%",
+    logger.info("  TF    : %s min  |  Leverage: %dx",
                 cfg["trading"]["timeframe"],
-                cfg["trading"]["leverage"],
-                cfg["trading"]["risk_per_trade_pct"])
+                cfg["trading"]["leverage"])
     logger.info("=" * 60)
 
-    # ── Imports (after logging is ready) ──────────────────────────────────────
+    # ── Database Initialization ───────────────────────────────────────────────
+    import db_model
+    conn_str = os.environ.get("DATABASE_URL")
+    admin_email = os.environ.get("ADMIN_EMAIL", "emmyadeoluwa@gmail.com")
+    admin_password = os.environ.get("ADMIN_PASSWORD", "Emmy1282")
+    admin_username = os.environ.get("ADMIN_USERNAME", "His_Emi")
+    
+    if not conn_str:
+        logger.error("DATABASE_URL environment variable is missing!")
+        sys.exit(1)
+        
+    db_model.init_db(conn_str, admin_email, admin_password, admin_username)
+
+    # ── Imports ───────────────────────────────────────────────────────────────
     from exchange         import BybitClient
-    from risk_manager     import RiskManager
-    from trade_manager    import TradeManager
     from bot_engine       import BotEngine
     from notifier         import Notifier
     import dashboard.app  as dashboard
 
-    # ── Initialise components ─────────────────────────────────────────────────
-    exc_cfg = cfg["exchange"]
-    client  = BybitClient(
-        api_key    = exc_cfg["api_key"],
-        api_secret = exc_cfg["api_secret"],
-        demo       = exc_cfg["demo"],
-    )
+    # Create public client for candle fetching (no API keys required for public kline data)
+    public_client = BybitClient(api_key="", api_secret="", demo=True)
 
     notifier = Notifier(
         token   = cfg["telegram"]["bot_token"],
         chat_id = cfg["telegram"]["chat_id"],
     )
 
-    strat_cfg = cfg["strategy"]
-    risk_mgr  = RiskManager(
-        sl_pct             = strat_cfg["sl_pct"],
-        risk_per_trade_pct = cfg["trading"]["risk_per_trade_pct"],
-        fixed_capital_base = cfg["trading"].get("fixed_capital_base", None),
-    )
-
-    trade_cfg = cfg["trading"]
-    tm = TradeManager(
-        exchange        = client,
-        risk_manager    = risk_mgr,
-        notifier        = notifier,
-        max_trades      = trade_cfg["max_concurrent_trades"],
-        trade_direction = trade_cfg["trade_direction"],
-        be_offset_r     = cfg["strategy"].get("be_offset_r", 0.1),
-    )
-
-    # ── Setup exchange for each symbol ────────────────────────────────────────
-    symbols   = trade_cfg["pairs"]
-    leverage  = trade_cfg["leverage"]
-    for sym in symbols:
-        client.set_isolated_margin(sym, leverage)
-        client.set_leverage(sym, leverage)
-        time.sleep(0.3)   # gentle rate limiting
-
-    # ── Synchronise open positions ────────────────────────────────────────────
-    tm.sync_positions(symbols)
-
-    # ── Bot engine (polling-based — replaces WebSocket) ─────────────────────────
+    # ── Bot Engine (Global Candle Indicators Tracker) ─────────────────────────
+    symbols = cfg["trading"]["pairs"]
     engine = BotEngine(
-        exchange      = client,
-        trade_manager = tm,
+        exchange      = public_client,
+        trade_manager = None,  # TM is deprecated in multi-tenant model
         symbols       = symbols,
         config        = cfg,
     )
     engine.start()
 
-    # ── Dashboard ─────────────────────────────────────────────────────────────
-    dash_cfg = cfg["dashboard"]
-    dashboard.init_dashboard(tm, client, cfg)
+    # ── Dashboard Server ──────────────────────────────────────────────────────
+    dashboard.init_dashboard(cfg)
 
-    # Default to 0.0.0.0 (all interfaces) so cloud environments like Render can route traffic
     dash_host = os.environ.get("HOST", "0.0.0.0")
-    dash_port = int(os.environ.get("PORT", dash_cfg["port"]))
+    dash_port = int(os.environ.get("PORT", cfg["dashboard"]["port"]))
 
     dash_thread = threading.Thread(
         target=dashboard.run,
@@ -133,30 +120,22 @@ def main():
     )
     dash_thread.start()
 
-    # ── Startup Telegram notification ─────────────────────────────────────────
-    balance = client.get_equity()
     notifier.info(
-        f"🚀 ALGOX Bot started!\n"
-        f"Pairs  : {', '.join(symbols)}\n"
-        f"Balance: ${balance:.2f} USDT\n"
-        f"Risk   : {trade_cfg['risk_per_trade_pct']}% | Lev: {leverage}x\n"
+        f"🚀 ALGOX Multi-Tenant SaaS Bot started!\n"
+        f"Database connected successfully ✅\n"
         f"Dashboard: http://{dash_host}:{dash_port}"
     )
 
     logger.info("Bot is live. Dashboard -> http://%s:%d", dash_host, dash_port)
 
-    # ── Keep alive ────────────────────────────────────────────────────────────
+    # ── Keep alive loop ───────────────────────────────────────────────────────
     try:
         while True:
-            time.sleep(30)
-            # Heartbeat log every 30 seconds
-            active = tm.active_count()
-            bal    = client.get_equity()
-            logger.info("Heartbeat | Active trades: %d | Equity: $%.2f", active, bal)
+            time.sleep(60)
     except KeyboardInterrupt:
         logger.info("Shutdown signal received")
         engine.stop()
-        notifier.info("🛑 ALGOX Bot stopped by user.")
+        notifier.info("🛑 ALGOX SaaS Bot stopped.")
         sys.exit(0)
 
 

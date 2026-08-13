@@ -233,6 +233,28 @@ class BybitClient:
             logger.error("set_stop_loss failed %s: %s", symbol, exc)
             return False
 
+    def set_trading_stops(self, symbol: str, sl_price: float, tp_price: float) -> bool:
+        """
+        Set both stop loss and take profit on the current position.
+        """
+        sl_str = str(self.round_price(symbol, sl_price))
+        tp_str = str(self.round_price(symbol, tp_price))
+        try:
+            self.session.set_trading_stop(
+                category="linear",
+                symbol=symbol,
+                stopLoss=sl_str,
+                takeProfit=tp_str,
+                slTriggerBy="LastPrice",
+                tpTriggerBy="LastPrice",
+                positionIdx=0,
+            )
+            logger.info("Stops set for %s | SL: %s, TP: %s", symbol, sl_str, tp_str)
+            return True
+        except Exception as exc:
+            logger.error("set_trading_stops failed %s: %s", symbol, exc)
+            return False
+
     def remove_stop_loss(self, symbol: str) -> bool:
         """Remove the stop loss from the current position."""
         try:
