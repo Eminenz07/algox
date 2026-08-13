@@ -58,8 +58,7 @@ body {
 .logo-icon { font-size: 24px; }
 .logo-text {
   font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #3fb950, #58a6ff);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  color: var(--blue);
 }
 .logo-sub { font-weight: 400; font-size: 13px; opacity: 0.7; }
 
@@ -137,7 +136,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: radial-gradient(circle at center, #1b2230 0%, #0d1117 100%);
+  background: var(--bg);
 }
 .auth-card {
   width: 420px;
