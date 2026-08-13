@@ -135,8 +135,8 @@ def api_state():
             api_secret = decrypt_text(creds["encrypted_api_secret"], creds["encryption_iv"], master_key)
             client = BybitClient(api_key=creds["api_key"], api_secret=api_secret, demo=True)
             balance = round(client.get_equity(), 2)
-        except Exception:
-            pass
+        except Exception as e:
+            logger.error("Failed to fetch balance for user %s: %s", current_user.username, e, exc_info=True)
             
     return jsonify({
         "trades": open_list,
