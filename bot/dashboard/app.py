@@ -135,6 +135,18 @@ def api_state():
             api_secret = decrypt_text(creds["encrypted_api_secret"], creds["encryption_iv"], master_key)
             client = BybitClient(api_key=creds["api_key"], api_secret=api_secret, demo=True)
             balance = round(client.get_equity(), 2)
+            
+            # Calculate live floating PnL for active positions
+            for t in open_list:
+                try:
+                    last_price = client.get_last_price(t["symbol"])
+                    if last_price:
+                        if t["direction"] == "LONG":
+                            t["pnl"] = round(t["qty"] * (last_price - t["entry_price"]), 2)
+                        else:  # SHORT
+                            t["pnl"] = round(t["qty"] * (t["entry_price"] - last_price), 2)
+                except Exception as pnl_err:
+                    logger.error("Failed to get live PnL for active position %s: %s", t["symbol"], pnl_err)
         except Exception as e:
             logger.error("Failed to fetch balance for user %s: %s", current_user.username, e, exc_info=True)
             
