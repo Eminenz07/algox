@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 class BotEngine:
     def __init__(self,
                  exchange:      BybitClient,
-                 trade_manager: TradeManager,
+                 trade_manager,
                  symbols:       list[str],
                  config:        dict):
         self.exchange      = exchange
