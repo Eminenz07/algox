@@ -214,6 +214,24 @@ body {
   box-shadow: 0 0 20px rgba(88, 166, 255, 0.35);
 }
 
+.btn-secondary {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-white);
+  font-family: var(--font);
+  font-size: 14px; font-weight: 700;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+.btn-secondary:hover {
+  background: var(--surface2);
+  border-color: var(--text-muted);
+}
+
 .btn-danger {
   width: 100%;
   padding: 12px;
