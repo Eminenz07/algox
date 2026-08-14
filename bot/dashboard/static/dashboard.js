@@ -143,35 +143,78 @@ function fetchState() {
     .catch(err => console.error("Error fetching state:", err));
 }
 
-// ── Credentials management ───────────────────────────────────────────────────
+// ── Credentials management & Onboarding Wizard ───────────────────────────────
+
+let currentStep = 1;
+
+function showStep(stepNum) {
+  currentStep = stepNum;
+  
+  // Update step indicators
+  const dots = document.querySelectorAll('.step-dot');
+  dots.forEach(dot => {
+    const step = parseInt(dot.getAttribute('data-step'));
+    if (step === stepNum) {
+      dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
+    }
+  });
+
+  // Update step containers visibility
+  const steps = document.querySelectorAll('.onboarding-step');
+  steps.forEach(step => {
+    const stepId = step.id;
+    if (stepId === `onboarding-step-${stepNum}`) {
+      step.style.display = 'block';
+    } else {
+      step.style.display = 'none';
+    }
+  });
+}
+
+function nextStep(stepNum) {
+  showStep(stepNum);
+}
+
+function prevStep(stepNum) {
+  showStep(stepNum);
+}
+
+function skipToStep(stepNum) {
+  showStep(stepNum);
+}
 
 function checkCredentialsStatus() {
   const statusDiv = document.getElementById('credentials-status');
-  const form = document.getElementById('credentials-form');
   const disconnectSec = document.getElementById('disconnect-section');
   const activeKeySpan = document.getElementById('active-api-key');
   const sidebar = document.querySelector('.sidebar');
+  const indicator = document.getElementById('onboarding-indicator');
 
   fetch('/api/credentials')
     .then(res => res.json())
     .then(data => {
       hasCredentials = data.has_credentials;
       if (hasCredentials) {
-        statusDiv.innerHTML = "Connected Successfully ✅";
-        statusDiv.className = "status-alert success";
-        form.style.display = "none";
+        statusDiv.style.display = "none";
+        if (indicator) indicator.style.display = "none";
+        document.querySelectorAll('.onboarding-step').forEach(el => el.style.display = 'none');
         disconnectSec.style.display = "block";
         activeKeySpan.textContent = data.api_key;
         if (sidebar) sidebar.style.display = 'none';
       } else {
-        statusDiv.innerHTML = "API Keys Disconnected ❌";
-        statusDiv.className = "status-alert error";
-        form.style.display = "block";
+        statusDiv.style.display = "block";
+        statusDiv.innerHTML = "Bybit Demo Account API keys not connected yet.";
+        statusDiv.className = "status-alert info";
+        if (indicator) indicator.style.display = "flex";
         disconnectSec.style.display = "none";
         if (sidebar) sidebar.style.display = 'block';
+        showStep(currentStep);
       }
     })
     .catch(err => {
+      statusDiv.style.display = "block";
       statusDiv.innerHTML = "Error reading credentials status.";
       statusDiv.className = "status-alert error";
     });
@@ -183,6 +226,7 @@ document.getElementById('credentials-form').addEventListener('submit', function(
   const api_secret = document.getElementById('api_secret').value;
   
   const statusDiv = document.getElementById('credentials-status');
+  statusDiv.style.display = "block";
   statusDiv.innerHTML = "Connecting & Verifying Bybit Demo Keys...";
   statusDiv.className = "status-alert info";
 
@@ -196,14 +240,17 @@ document.getElementById('credentials-form').addEventListener('submit', function(
       if (data.success) {
         document.getElementById('api_key').value = '';
         document.getElementById('api_secret').value = '';
+        currentStep = 1; // Reset to step 1 for future
         checkCredentialsStatus();
         fetchState();
       } else {
+        statusDiv.style.display = "block";
         statusDiv.innerHTML = `❌ Verification failed: ${data.error}`;
         statusDiv.className = "status-alert error";
       }
     })
     .catch(err => {
+      statusDiv.style.display = "block";
       statusDiv.innerHTML = `❌ Connection error: ${err}`;
       statusDiv.className = "status-alert error";
     });
@@ -215,6 +262,7 @@ document.getElementById('btn-disconnect').addEventListener('click', function() {
   fetch('/api/credentials', { method: 'DELETE' })
     .then(res => res.json())
     .then(data => {
+      currentStep = 1;
       checkCredentialsStatus();
       fetchState();
     });

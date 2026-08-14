@@ -496,3 +496,61 @@ body {
     padding: 20px;
   }
 }
+
+/* Onboarding Wizard Styles */
+.step-indicator-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0 20px 0;
+}
+.step-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--border);
+  transition: background-color 0.3s ease;
+}
+.step-dot.active {
+  background-color: var(--blue);
+}
+.onboarding-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-white);
+  margin-bottom: 8px;
+}
+.permission-list {
+  padding-left: 20px;
+  margin: 12px 0 20px 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.permission-list li {
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.permission-list strong {
+  color: var(--blue);
+}
+.onboarding-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 12px;
+}
+.onboarding-footer button {
+  width: 100%;
+}
+.skip-link {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.skip-link:hover {
+  color: var(--blue);
+}
+

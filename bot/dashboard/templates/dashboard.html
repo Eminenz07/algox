@@ -33,26 +33,64 @@
 <!-- ── Main Dashboard Container ──────────────────────────────── -->
 <div class="dashboard-container">
   
-  <!-- Left Panel: API Credentials -->
+  <!-- Left Panel: API Credentials / Onboarding -->
   <aside class="sidebar">
     <div class="glass-card">
       <h3>🔑 Bybit Demo Connection</h3>
+      
+      <div class="step-indicator-container" id="onboarding-indicator" style="display: none;">
+        <div class="step-dot active" data-step="1"></div>
+        <div class="step-dot" data-step="2"></div>
+        <div class="step-dot" data-step="3"></div>
+      </div>
+      
       <div id="credentials-status" class="status-alert info">
         Checking status...
       </div>
       
-      <form id="credentials-form" style="display:none;">
-        <p class="subtitle" style="margin-top: -8px;">Connect your Unified Testnet account keys to allow ALGOX to place orders.</p>
-        <div class="input-group">
-          <label>Bybit Demo API Key</label>
-          <input type="text" id="api_key" placeholder="Enter API Key" required />
+      <!-- Step 1: Account Setup -->
+      <div id="onboarding-step-1" class="onboarding-step" style="display: none;">
+        <p class="onboarding-title">Step 1: Setup Demo Account</p>
+        <p class="subtitle">ALGOX trades on Bybit's risk-free Unified Testnet environment. Click below to create your demo account.</p>
+        <a href="https://testnet.bybit.com/" target="_blank" class="btn-primary text-center" style="display: block; text-decoration: none; margin: 16px 0; text-align: center; font-size: 13px;">Create Demo Account ↗</a>
+        <div class="onboarding-footer">
+          <button class="btn-secondary" onclick="nextStep(2)">Generate API Key ➔</button>
+          <a href="javascript:void(0)" class="skip-link" onclick="skipToStep(3)">Skip to Enter Keys</a>
         </div>
-        <div class="input-group">
-          <label>Bybit Demo API Secret</label>
-          <input type="password" id="api_secret" placeholder="Enter API Secret" required />
+      </div>
+
+      <!-- Step 2: Generate API Key -->
+      <div id="onboarding-step-2" class="onboarding-step" style="display: none;">
+        <p class="onboarding-title">Step 2: Create API Key</p>
+        <p class="subtitle">On Bybit Testnet, go to API Management, select **System-generated Key**, and apply these permissions:</p>
+        <ul class="permission-list">
+          <li>Permission Type: <strong>Read-Write</strong></li>
+          <li>Under Unified Trading: Check <strong>Unified Trading</strong></li>
+        </ul>
+        <div class="onboarding-footer">
+          <button class="btn-secondary" onclick="prevStep(1)">◀ Back</button>
+          <button class="btn-primary" onclick="nextStep(3)">Next: Connect ➔</button>
         </div>
-        <button type="submit" class="btn-primary">Connect Demo Account</button>
-      </form>
+      </div>
+
+      <!-- Step 3: Connect Keys -->
+      <div id="onboarding-step-3" class="onboarding-step" style="display: none;">
+        <p class="onboarding-title">Step 3: Connect Demo Keys</p>
+        <form id="credentials-form">
+          <div class="input-group">
+            <label>Bybit Demo API Key</label>
+            <input type="text" id="api_key" placeholder="Enter API Key" required />
+          </div>
+          <div class="input-group">
+            <label>Bybit Demo API Secret</label>
+            <input type="password" id="api_secret" placeholder="Enter API Secret" required />
+          </div>
+          <div class="onboarding-footer">
+            <button type="button" class="btn-secondary" onclick="prevStep(2)">◀ Back</button>
+            <button type="submit" class="btn-primary">Connect Keys</button>
+          </div>
+        </form>
+      </div>
       
       <div id="disconnect-section" style="display:none;">
         <div class="api-key-display">
